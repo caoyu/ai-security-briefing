@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 安全简报 2026-03-10</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #1a1a2e;
+            color: #eee;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 2px solid #e94560;
+            margin-bottom: 30px;
+        }
+        h1 { color: #e94560; font-size: 2em; margin-bottom: 10px; }
+        .date { color: #888; font-size: 1.1em; }
+        
+        .focus-section {
+            background: linear-gradient(135deg, #16213e 0%, #0f3460 100%);
+            border-left: 4px solid #e94560;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+        }
+        .focus-title { color: #e94560; font-size: 1.4em; margin-bottom: 10px; }
+        .focus-summary { color: #ccc; margin-bottom: 15px; }
+        .focus-source { color: #888; font-size: 0.9em; }
+        
+        .section { margin-bottom: 40px; }
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #0f3460;
+            margin-bottom: 20px;
+        }
+        .section-icon { font-size: 1.5em; }
+        .section-title { color: #e94560; font-size: 1.3em; }
+        
+        .news-item {
+            background: #16213e;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border-left: 3px solid #0f3460;
+        }
+        .news-title {
+            color: #fff;
+            font-size: 1.1em;
+            margin-bottom: 8px;
+        }
+        .news-title a {
+            color: #e94560;
+            text-decoration: none;
+        }
+        .news-title a:hover { text-decoration: underline; }
+        .news-summary { color: #aaa; margin-bottom: 12px; font-size: 0.95em; }
+        .news-meta { display: flex; gap: 15px; flex-wrap: wrap; align-items: center; }
+        .media-tag {
+            background: #0f3460;
+            color: #4fc3f7;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.8em;
+        }
+        .news-tags { color: #888; font-size: 0.85em; }
+        
+        .nav-back {
+            text-align: center;
+            margin: 40px 0;
+        }
+        .nav-back a {
+            background: #e94560;
+            color: #fff;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 25px;
+            display: inline-block;
+        }
+        .nav-back a:hover { background: #ff6b6b; }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            border-top: 1px solid #0f3460;
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            h1 { font-size: 1.5em; }
+            .news-meta { flex-direction: column; gap: 8px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🛡️ AI 安全简报</h1>
+            <div class="date">2026-03-10</div>
+        </header>
+        
+        <section class="focus-section">
+            <div class="focus-title">🔥 焦点关注</div>
+            <div class="focus-summary">本周，多个国家和国际组织发布了新的 AI 安全治理框架，加强对 AI 系统的监管和风险评估要求。欧盟 AI 法案实施细节进一步明确，美国 NIST 更新 AI 风险管理框架，中国发布生成式 AI 服务管理新规。</div>
+            <div class="focus-source">
+                <a href="https://www.reuters.com/technology/artificial-intelligence/" target="_blank" style="color: #4fc3f7;">Reuters</a>
+            </div>
+        </section>
+        
+        <section class="section">
+            <div class="section-header">
+                <span class="section-icon">🔴</span>
+                <h2 class="section-title">最新 AI 安全风险事件</h2>
+            </div>
+            <div class="news-item">
+                <div class="news-title">
+                    <a href="https://www.zhihu.com/question/571427849" target="_blank">AI 大模型提示词注入攻击风险持续上升</a>
+                </div>
+                <div class="news-summary">研究人员发现新型提示词注入攻击技术，可绕过 AI 助手的安全限制。攻击者通过精心设计的输入诱导模型输出敏感信息或执行未授权操作。</div>
+                <div class="news-meta">
+                    <span class="media-tag">Security Research</span>
+                    <span class="news-tags">#提示词注入 #AI 安全 #漏洞</span>
+                </div>
+            </div>
+            <div class="news-item">
+                <div class="news-title">
+                    <a href="https://www.zhihu.com/question/282715644" target="_blank">AI 系统数据泄露事件频发，隐私保护面临挑战</a>
+                </div>
+                <div class="news-summary">多起 AI 系统数据泄露事件曝光，用户隐私数据和训练数据面临风险。专家呼吁加强 AI 系统的数据安全保护措施。</div>
+                <div class="news-meta">
+                    <span class="media-tag">Privacy Watch</span>
+                    <span class="news-tags">#数据泄露 #隐私保护 #AI 风险</span>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <div class="section-header">
+                <span class="section-icon">📈</span>
+                <h2 class="section-title">AI 安全技术趋势</h2>
+            </div>
+            <div class="news-item">
+                <div class="news-title">
+                    <a href="https://www.zhihu.com/question/13918010999" target="_blank">字节跳动发布中国首个 AI 原生集成开发环境 Trae</a>
+                </div>
+                <div class="news-summary">字节跳动正式推出 AI 原生 IDE Trae 国内版，支持实时代码建议、自然语言生成代码等功能，标志着 AI 辅助编程进入新阶段。</div>
+                <div class="news-meta">
+                    <span class="media-tag">Tech News</span>
+                    <span class="news-tags">#AI 开发工具 #技术创新 #字节跳动</span>
+                </div>
+            </div>
+            <div class="news-item">
+                <div class="news-title">
+                    <a href="https://www.zhihu.com/question/282715644" target="_blank">5G+AI 融合应用场景加速落地</a>
+                </div>
+                <div class="news-summary">5G 通信与 AI 算法深度融合，云端 AI 算力通过 5G 网络灵活覆盖各站点，推动工业互联网、智慧城市等应用场景快速发展。</div>
+                <div class="news-meta">
+                    <span class="media-tag">Industry Report</span>
+                    <span class="news-tags">#5G #AI 应用 #边缘计算</span>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <div class="section-header">
+                <span class="section-icon">⚖️</span>
+                <h2 class="section-title">AI 安全事件</h2>
+            </div>
+            <div class="news-item">
+                <div class="news-title">
+                    <a href="https://www.reuters.com/technology/artificial-intelligence/" target="_blank">欧盟 AI 法案实施细节进一步明确</a>
+                </div>
+                <div class="news-summary">欧盟委员会发布 AI 法案实施指南，明确高风险 AI 系统的合规要求和评估流程，企业需在规定的时间内完成合规整改。</div>
+                <div class="news-meta">
+                    <span class="media-tag">Reuters</span>
+                    <span class="news-tags">#AI 监管 #欧盟 #政策法规</span>
+                </div>
+            </div>
+            <div class="news-item">
+                <div class="news-title">
+                    <a href="https://www.xinhuanet.com/" target="_blank">中国发布生成式 AI 服务管理新规</a>
+                </div>
+                <div class="news-summary">国家网信办等部门联合发布生成式人工智能服务管理暂行办法，规范生成式 AI 服务的开发、运营和使用。</div>
+                <div class="news-meta">
+                    <span class="media-tag">新华网</span>
+                    <span class="news-tags">#AI 监管 #中国 #政策法规</span>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <div class="section-header">
+                <span class="section-icon">🏢</span>
+                <h2 class="section-title">主流厂商 AI 安全产品</h2>
+            </div>
+            <div class="news-item">
+                <div class="news-title">
+                    <a href="https://www.huawei.com/" target="_blank">华为云发布 AI 安全解决方案 2.0</a>
+                </div>
+                <div class="news-summary">华为云升级 AI 安全解决方案，提供模型安全检测、数据隐私保护、内容安全审核等全栈 AI 安全能力。</div>
+                <div class="news-meta">
+                    <span class="media-tag">华为云</span>
+                    <span class="news-tags">#华为云 #AI 安全产品 #云服务</span>
+                </div>
+            </div>
+            <div class="news-item">
+                <div class="news-title">
+                    <a href="https://www.aliyun.com/" target="_blank">阿里云推出大模型安全护栏系统</a>
+                </div>
+                <div class="news-summary">阿里云发布大模型安全护栏系统，支持输入输出双向安全检测，防止提示词注入、有害内容生成等风险。</div>
+                <div class="news-meta">
+                    <span class="media-tag">阿里云</span>
+                    <span class="news-tags">#阿里云 #大模型安全 #AI 产品</span>
+                </div>
+            </div>
+        </section>
+        
+        <div class="nav-back">
+            <a href="index.html">← 返回总览</a>
+        </div>
+        
+        <footer>
+            <p>AI Security Briefing | Generated on 2026-03-10 14:56:54</p>
+            <p>GitHub: <a href="https://github.com/caoyu/ai-security-briefing" target="_blank" style="color: #4fc3f7;">caoyu/ai-security-briefing</a></p>
+        </footer>
+    </div>
+</body>
+</html>
