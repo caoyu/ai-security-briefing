@@ -3,248 +3,616 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI 安全简报 2026-03-10</title>
+    <title>AI 安全简报 2026-03-10 - AI Security Briefing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-tertiary: #21262d;
+            --border-color: #30363d;
+            --text-primary: #f0f6fc;
+            --text-secondary: #8b949e;
+            --text-muted: #6e7681;
+            --accent-blue: #58a6ff;
+            --accent-green: #3fb950;
+            --accent-red: #f85149;
+            --accent-purple: #a371f7;
+            --accent-orange: #d29922;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background: #1a1a2e;
-            color: #eee;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
             line-height: 1.6;
-            padding: 20px;
+            -webkit-font-smoothing: antialiased;
         }
-        .container { max-width: 1200px; margin: 0 auto; }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
         header {
-            text-align: center;
-            padding: 30px 0;
-            border-bottom: 2px solid #e94560;
-            margin-bottom: 30px;
+            padding: 48px 0 32px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 48px;
         }
-        h1 { color: #e94560; font-size: 2em; margin-bottom: 10px; }
-        .date { color: #888; font-size: 1.1em; }
-        
+
+        .header-nav {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .back-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+            transition: all 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: var(--text-primary);
+            border-color: var(--accent-blue);
+            background: var(--bg-tertiary);
+        }
+
+        .header-content h1 {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .post-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: var(--text-muted);
+            background: var(--bg-tertiary);
+            padding: 4px 12px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+        }
+
+        .post-stats {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* Focus Section */
         .focus-section {
-            background: linear-gradient(135deg, #16213e 0%, #0f3460 100%);
-            border-left: 4px solid #e94560;
-            padding: 25px;
-            margin-bottom: 30px;
-            border-radius: 8px;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(88, 166, 255, 0.08) 100%);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--accent-blue);
+            padding: 28px;
+            margin-bottom: 48px;
+            border-radius: 12px;
         }
-        .focus-title { color: #e94560; font-size: 1.4em; margin-bottom: 10px; }
-        .focus-summary { color: #ccc; margin-bottom: 15px; }
-        .focus-source { color: #888; font-size: 0.9em; }
-        .focus-source a { color: #4fc3f7; text-decoration: none; }
-        
-        .section { margin-bottom: 40px; }
-        .section-header {
+
+        .focus-header {
             display: flex;
             align-items: center;
             gap: 10px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #0f3460;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
-        .section-icon { font-size: 1.5em; }
-        .section-title { color: #e94560; font-size: 1.3em; }
-        
-        .news-item {
-            background: #16213e;
-            padding: 20px;
-            margin-bottom: 15px;
-            border-radius: 8px;
-            border-left: 3px solid #0f3460;
+
+        .focus-icon {
+            font-size: 24px;
         }
-        .news-title {
-            color: #fff;
-            font-size: 1.1em;
-            margin-bottom: 8px;
+
+        .focus-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
         }
-        .news-title a {
-            color: #e94560;
+
+        .focus-summary {
+            color: var(--text-secondary);
+            font-size: 15px;
+            margin-bottom: 16px;
+            line-height: 1.7;
+        }
+
+        .focus-source {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .source-tag {
+            font-size: 13px;
+            color: var(--text-muted);
+            background: var(--bg-tertiary);
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+        }
+
+        .source-tag a {
+            color: var(--accent-blue);
             text-decoration: none;
         }
-        .news-title a:hover { text-decoration: underline; }
-        .news-summary { color: #aaa; margin-bottom: 12px; font-size: 0.95em; }
-        .news-meta { display: flex; gap: 15px; flex-wrap: wrap; align-items: center; }
-        .media-tag {
-            background: #0f3460;
-            color: #4fc3f7;
-            padding: 3px 10px;
+
+        .source-tag a:hover {
+            text-decoration: underline;
+        }
+
+        /* Content Sections */
+        .content-section {
+            margin-bottom: 48px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-icon {
+            font-size: 20px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: -0.3px;
+        }
+
+        /* Article Cards */
+        .article-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .article-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
             border-radius: 12px;
-            font-size: 0.8em;
+            padding: 24px;
+            transition: all 0.2s ease;
         }
-        .news-tags { color: #888; font-size: 0.85em; }
-        
-        .nav-back {
-            text-align: center;
-            margin: 40px 0;
+
+        .article-card:hover {
+            border-color: var(--accent-blue);
+            transform: translateX(4px);
         }
-        .nav-back a {
-            background: #e94560;
-            color: #fff;
-            padding: 12px 30px;
+
+        .article-card.featured {
+            border-color: var(--accent-orange);
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(210, 153, 34, 0.05) 100%);
+        }
+
+        .article-card.featured::before {
+            content: 'Featured';
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(210, 153, 34, 0.1);
+            color: var(--accent-orange);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .article-title {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .article-title a {
+            color: var(--text-primary);
             text-decoration: none;
-            border-radius: 25px;
-            display: inline-block;
         }
-        .nav-back a:hover { background: #ff6b6b; }
-        
+
+        .article-title a:hover {
+            color: var(--accent-blue);
+        }
+
+        .article-summary {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 16px;
+            line-height: 1.7;
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .source-badge {
+            background: var(--bg-tertiary);
+            color: var(--accent-blue);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 500;
+            border: 1px solid var(--border-color);
+        }
+
+        .article-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            color: var(--text-muted);
+            font-size: 13px;
+            background: var(--bg-tertiary);
+            padding: 3px 8px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+        }
+
+        .tag.danger {
+            color: var(--accent-red);
+            border-color: rgba(248, 81, 73, 0.3);
+            background: rgba(248, 81, 73, 0.05);
+        }
+
+        .tag.policy {
+            color: var(--accent-purple);
+            border-color: rgba(163, 113, 247, 0.3);
+            background: rgba(163, 113, 247, 0.05);
+        }
+
+        .tag.tech {
+            color: var(--accent-green);
+            border-color: rgba(63, 185, 80, 0.3);
+            background: rgba(63, 185, 80, 0.05);
+        }
+
+        /* Footer */
         footer {
-            text-align: center;
-            padding: 30px 0;
-            border-top: 1px solid #0f3460;
-            color: #666;
-            font-size: 0.9em;
+            border-top: 1px solid var(--border-color);
+            padding: 40px 0;
+            margin-top: 64px;
         }
-        footer a { color: #4fc3f7; text-decoration: none; }
-        
+
+        .footer-content {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .footer-content a {
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
+
+        .footer-content a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 16px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            body { padding: 10px; }
-            h1 { font-size: 1.5em; }
-            .news-meta { flex-direction: column; gap: 8px; }
+            .container {
+                padding: 0 16px;
+            }
+
+            header {
+                padding: 32px 0 24px;
+            }
+
+            .header-content h1 {
+                font-size: 24px;
+            }
+
+            .focus-section {
+                padding: 20px;
+            }
+
+            .article-card {
+                padding: 20px;
+            }
+
+            .article-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>🛡️ AI 安全简报</h1>
-            <div class="date">2026-03-10</div>
+            <nav class="header-nav">
+                <a href="index.html" class="back-link">
+                    <span>←</span>
+                    <span>Back to Briefing</span>
+                </a>
+            </nav>
+            <div class="header-content">
+                <h1>
+                    <span>🛡️</span>
+                    AI Security Briefing
+                </h1>
+                <div class="header-meta">
+                    <span class="post-date">2026-03-10</span>
+                    <span class="post-stats">8 articles · 5 min read</span>
+                </div>
+            </div>
         </header>
-        
-        <section class="focus-section">
-            <div class="focus-title">🔥 焦点关注</div>
-            <div class="focus-summary">政府工作报告首次提出"打造智能经济新形态"，AI 安全治理成为 2026 年政策重点。与此同时，人工智能修复漏洞的同时也可能帮助传播存在 15 年的老漏洞，AI 双刃剑效应引发关注。</div>
-            <div class="focus-source">
-                来源：<a href="https://www.gov.cn/" target="_blank">中国政府网</a> · <a href="https://www.anquanke.com/" target="_blank">安全客</a>
-            </div>
-        </section>
-        
-        <section class="section">
-            <div class="section-header">
-                <span class="section-icon">🔴</span>
-                <h2 class="section-title">最新 AI 安全风险事件</h2>
-            </div>
-            <div class="news-item">
-                <div class="news-title">
-                    <a href="https://www.anquanke.com/post/id/308401" target="_blank">人工智能可能修复帮助传播了 15 年的漏洞</a>
+
+        <main>
+            <section class="focus-section">
+                <div class="focus-header">
+                    <span class="focus-icon">🔥</span>
+                    <h2 class="focus-title">Today's Focus</h2>
                 </div>
-                <div class="news-summary">研究发现 AI 辅助编程工具在修复旧漏洞时，可能无意中将存在 15 年的安全漏洞传播到新的代码库中。开发者需警惕 AI 生成代码的潜在风险。</div>
-                <div class="news-meta">
-                    <span class="media-tag">安全客</span>
-                    <span class="news-tags">#AI 安全 #漏洞 #代码安全</span>
+                <p class="focus-summary">
+                    政府工作报告首次提出"打造智能经济新形态"，AI 安全治理成为 2026 年政策重点。与此同时，人工智能修复漏洞的同时也可能帮助传播存在 15 年的老漏洞，AI 双刃剑效应引发关注。
+                </p>
+                <div class="focus-source">
+                    <span class="source-tag">
+                        <a href="https://www.gov.cn/" target="_blank">中国政府网</a>
+                    </span>
+                    <span class="source-tag">
+                        <a href="https://www.anquanke.com/" target="_blank">安全客</a>
+                    </span>
                 </div>
-            </div>
-            <div class="news-item">
-                <div class="news-title">
-                    <a href="https://www.anquanke.com/" target="_blank">德克萨斯州交通部数据泄露暴露 30 万份车祸报告</a>
+            </section>
+
+            <section class="content-section">
+                <div class="section-header">
+                    <span class="section-icon">🔴</span>
+                    <h2 class="section-title">Security Incidents</h2>
                 </div>
-                <div class="news-summary">TxDOT 数据泄露事件导致 30 万份车祸报告被曝光，包含敏感个人信息。事件再次凸显 AI 数据处理系统的隐私保护挑战。</div>
-                <div class="news-meta">
-                    <span class="media-tag">安全客</span>
-                    <span class="news-tags">#数据泄露 #隐私保护</span>
+                <div class="article-list">
+                    <article class="article-card featured">
+                        <h3 class="article-title">
+                            <a href="https://www.anquanke.com/post/id/308401" target="_blank">
+                                人工智能可能修复帮助传播了 15 年的漏洞
+                            </a>
+                        </h3>
+                        <p class="article-summary">
+                            研究发现 AI 辅助编程工具在修复旧漏洞时，可能无意中将存在 15 年的安全漏洞传播到新的代码库中。开发者需警惕 AI 生成代码的潜在风险，建议建立更严格的代码审查机制。
+                        </p>
+                        <div class="article-meta">
+                            <span class="source-badge">安全客</span>
+                            <div class="article-tags">
+                                <span class="tag danger">#AI-Security</span>
+                                <span class="tag danger">#Vulnerability</span>
+                                <span class="tag">#Code-Safety</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="article-card">
+                        <h3 class="article-title">
+                            <a href="https://www.anquanke.com/" target="_blank">
+                                德克萨斯州交通部数据泄露暴露 30 万份车祸报告
+                            </a>
+                        </h3>
+                        <p class="article-summary">
+                            TxDOT 数据泄露事件导致 30 万份车祸报告被曝光，包含敏感个人信息。事件再次凸显 AI 数据处理系统的隐私保护挑战，相关部门已启动应急响应机制。
+                        </p>
+                        <div class="article-meta">
+                            <span class="source-badge">安全客</span>
+                            <div class="article-tags">
+                                <span class="tag danger">#Data-Breach</span>
+                                <span class="tag">#Privacy</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="article-card">
+                        <h3 class="article-title">
+                            <a href="https://www.anquanke.com/" target="_blank">
+                                德国对沃达丰隐私和安全漏洞罚款 5100 万美元
+                            </a>
+                        </h3>
+                        <p class="article-summary">
+                            德国监管机构因沃达丰存在严重隐私和安全漏洞处以 5100 万美元罚款，为欧洲 AI 和数据保护执法树立新标杆。
+                        </p>
+                        <div class="article-meta">
+                            <span class="source-badge">安全客</span>
+                            <div class="article-tags">
+                                <span class="tag policy">#GDPR</span>
+                                <span class="tag">#Compliance</span>
+                            </div>
+                        </div>
+                    </article>
                 </div>
-            </div>
-            <div class="news-item">
-                <div class="news-title">
-                    <a href="https://www.anquanke.com/" target="_blank">德国对沃达丰隐私和安全漏洞罚款 5100 万美元</a>
+            </section>
+
+            <section class="content-section">
+                <div class="section-header">
+                    <span class="section-icon">📈</span>
+                    <h2 class="section-title">Industry Trends</h2>
                 </div>
-                <div class="news-summary">德国监管机构因沃达丰存在严重隐私和安全漏洞处以 5100 万美元罚款，为欧洲 AI 和数据保护执法树立新标杆。</div>
-                <div class="news-meta">
-                    <span class="media-tag">安全客</span>
-                    <span class="news-tags">#隐私保护 #监管罚款</span>
+                <div class="article-list">
+                    <article class="article-card">
+                        <h3 class="article-title">
+                            <a href="https://www.ithome.com/0/927/067.htm" target="_blank">
+                                AI 浪潮下中国传媒大学砍掉 16 个本科专业
+                            </a>
+                        </h3>
+                        <p class="article-summary">
+                            中国传媒大学因应 AI 技术发展趋势，取消翻译、摄影等 16 个本科专业和方向，反映 AI 对高等教育和就业市场的深远影响。
+                        </p>
+                        <div class="article-meta">
+                            <span class="source-badge">IT 之家</span>
+                            <div class="article-tags">
+                                <span class="tag tech">#AI-Impact</span>
+                                <span class="tag">#Education</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="article-card">
+                        <h3 class="article-title">
+                            <a href="https://www.ithome.com/0/927/230.htm" target="_blank">
+                                腾讯版"小龙虾"WorkBuddy 上线
+                            </a>
+                        </h3>
+                        <p class="article-summary">
+                            腾讯发布 WorkBuddy 智能助手，支持下载安装使用，兼容 OpenClaw 技能生态。AI 助手市场竞争加剧。
+                        </p>
+                        <div class="article-meta">
+                            <span class="source-badge">IT 之家</span>
+                            <div class="article-tags">
+                                <span class="tag tech">#AI-Assistant</span>
+                                <span class="tag">#Tencent</span>
+                            </div>
+                        </div>
+                    </article>
                 </div>
-            </div>
-        </section>
-        
-        <section class="section">
-            <div class="section-header">
-                <span class="section-icon">📈</span>
-                <h2 class="section-title">AI 安全技术趋势</h2>
-            </div>
-            <div class="news-item">
-                <div class="news-title">
-                    <a href="https://www.ithome.com/0/927/067.htm" target="_blank">AI 浪潮下中国传媒大学砍掉 16 个本科专业</a>
+            </section>
+
+            <section class="content-section">
+                <div class="section-header">
+                    <span class="section-icon">⚖️</span>
+                    <h2 class="section-title">Policy & Regulation</h2>
                 </div>
-                <div class="news-summary">中国传媒大学因应 AI 技术发展趋势，取消翻译、摄影等 16 个本科专业和方向，反映 AI 对高等教育和就业市场的深远影响。</div>
-                <div class="news-meta">
-                    <span class="media-tag">IT 之家</span>
-                    <span class="news-tags">#AI 影响 #教育 #就业</span>
+                <div class="article-list">
+                    <article class="article-card featured">
+                        <h3 class="article-title">
+                            <a href="https://www.gov.cn/zhengce/content/202603/content_7061119.htm" target="_blank">
+                                政府工作报告首提"打造智能经济新形态"
+                            </a>
+                        </h3>
+                        <p class="article-summary">
+                            2026 年政府工作报告首次提出"打造智能经济新形态"，强调因地制宜发展新质生产力，AI 安全治理成为政策重点。这标志着 AI 发展正式纳入国家战略层面。
+                        </p>
+                        <div class="article-meta">
+                            <span class="source-badge">中国政府网</span>
+                            <div class="article-tags">
+                                <span class="tag policy">#Policy</span>
+                                <span class="tag policy">#AI-Governance</span>
+                                <span class="tag">#China</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="article-card">
+                        <h3 class="article-title">
+                            <a href="https://www.gov.cn/zhengce/" target="_blank">
+                                "十五五"规划部署 AI 发展方向
+                            </a>
+                        </h3>
+                        <p class="article-summary">
+                            国务院新闻办解读"十五五"规划纲要草案，明确未来五年 AI 技术发展重点和安全治理框架。
+                        </p>
+                        <div class="article-meta">
+                            <span class="source-badge">中国政府网</span>
+                            <div class="article-tags">
+                                <span class="tag policy">#15th-Five-Year</span>
+                                <span class="tag">#Planning</span>
+                            </div>
+                        </div>
+                    </article>
                 </div>
-            </div>
-            <div class="news-item">
-                <div class="news-title">
-                    <a href="https://www.ithome.com/0/927/230.htm" target="_blank">腾讯版"小龙虾"WorkBuddy 上线</a>
+            </section>
+
+            <section class="content-section">
+                <div class="section-header">
+                    <span class="section-icon">🏢</span>
+                    <h2 class="section-title">Enterprise Products</h2>
                 </div>
-                <div class="news-summary">腾讯发布 WorkBuddy 智能助手，支持下载安装使用，兼容 OpenClaw 技能生态。AI 助手市场竞争加剧。</div>
-                <div class="news-meta">
-                    <span class="media-tag">IT 之家</span>
-                    <span class="news-tags">#AI 助手 #腾讯 #智能体</span>
+                <div class="article-list">
+                    <article class="article-card">
+                        <h3 class="article-title">
+                            <a href="https://www.ithome.com/0/927/368.htm" target="_blank">
+                                华为小艺开放平台新增 OpenClaw 模式
+                            </a>
+                        </h3>
+                        <p class="article-summary">
+                            华为小艺开放平台新增 OpenClaw 模式，支持通过小艺 App 连接 7×24 个人专属智能体，加强 AI 助手安全连接能力。
+                        </p>
+                        <div class="article-meta">
+                            <span class="source-badge">IT 之家</span>
+                            <div class="article-tags">
+                                <span class="tag tech">#Huawei</span>
+                                <span class="tag tech">#OpenClaw</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="article-card">
+                        <h3 class="article-title">
+                            <a href="https://www.ithome.com/0/926/823.htm" target="_blank">
+                                腾讯 QQ 开放 OpenClaw 官方接入
+                            </a>
+                        </h3>
+                        <p class="article-summary">
+                            腾讯 QQ 开放 OpenClaw"小龙虾"官方接入，支持一键创建机器人，单个账号最多 5 个，推动 AI 助手生态发展。
+                        </p>
+                        <div class="article-meta">
+                            <span class="source-badge">IT 之家</span>
+                            <div class="article-tags">
+                                <span class="tag tech">#Tencent</span>
+                                <span class="tag tech">#QQ-Bot</span>
+                            </div>
+                        </div>
+                    </article>
                 </div>
-            </div>
-        </section>
-        
-        <section class="section">
-            <div class="section-header">
-                <span class="section-icon">⚖️</span>
-                <h2 class="section-title">AI 安全事件</h2>
-            </div>
-            <div class="news-item">
-                <div class="news-title">
-                    <a href="https://www.gov.cn/zhengce/content/202603/content_7061119.htm" target="_blank">政府工作报告首提"打造智能经济新形态"</a>
-                </div>
-                <div class="news-summary">2026 年政府工作报告首次提出"打造智能经济新形态"，强调因地制宜发展新质生产力，AI 安全治理成为政策重点。</div>
-                <div class="news-meta">
-                    <span class="media-tag">中国政府网</span>
-                    <span class="news-tags">#AI 政策 #政府工作报告 #智能经济</span>
-                </div>
-            </div>
-            <div class="news-item">
-                <div class="news-title">
-                    <a href="https://www.gov.cn/zhengce/" target="_blank">"十五五"规划部署 AI 发展方向</a>
-                </div>
-                <div class="news-summary">国务院新闻办解读"十五五"规划纲要草案，明确未来五年 AI 技术发展重点和安全治理框架。</div>
-                <div class="news-meta">
-                    <span class="media-tag">中国政府网</span>
-                    <span class="news-tags">#十五五 #AI 规划 #政策</span>
-                </div>
-            </div>
-        </section>
-        
-        <section class="section">
-            <div class="section-header">
-                <span class="section-icon">🏢</span>
-                <h2 class="section-title">主流厂商 AI 安全产品</h2>
-            </div>
-            <div class="news-item">
-                <div class="news-title">
-                    <a href="https://www.ithome.com/0/927/368.htm" target="_blank">华为小艺开放平台新增 OpenClaw 模式</a>
-                </div>
-                <div class="news-summary">华为小艺开放平台新增 OpenClaw 模式，支持通过小艺 App 连接 7×24 个人专属智能体，加强 AI 助手安全连接能力。</div>
-                <div class="news-meta">
-                    <span class="media-tag">IT 之家</span>
-                    <span class="news-tags">#华为 #AI 助手 #OpenClaw</span>
-                </div>
-            </div>
-            <div class="news-item">
-                <div class="news-title">
-                    <a href="https://www.ithome.com/0/926/823.htm" target="_blank">腾讯 QQ 开放 OpenClaw 官方接入</a>
-                </div>
-                <div class="news-summary">腾讯 QQ 开放 OpenClaw"小龙虾"官方接入，支持一键创建机器人，单个账号最多 5 个，推动 AI 助手生态发展。</div>
-                <div class="news-meta">
-                    <span class="media-tag">IT 之家</span>
-                    <span class="news-tags">#腾讯 #QQ #AI 机器人</span>
-                </div>
-            </div>
-        </section>
-        
-        <div class="nav-back">
-            <a href="index.html">← 返回总览</a>
-        </div>
-        
+            </section>
+        </main>
+
         <footer>
-            <p>AI Security Briefing | Generated on 2026-03-10 16:13:10</p>
-            <p>GitHub: <a href="https://github.com/caoyu/ai-security-briefing" target="_blank">caoyu/ai-security-briefing</a></p>
+            <div class="footer-content">
+                <p>AI Security Briefing | Generated on 2026-03-10 16:13:10</p>
+                <div class="footer-links">
+                    <a href="https://github.com/caoyu/ai-security-briefing" target="_blank">GitHub</a>
+                    <a href="https://github.com/caoyu/ai-security-briefing/issues" target="_blank">Issues</a>
+                    <a href="https://github.com/caoyu/ai-security-briefing/blob/main/LICENSE" target="_blank">License</a>
+                </div>
+            </div>
         </footer>
     </div>
 </body>

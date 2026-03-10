@@ -3,114 +3,349 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI 安全简报总览</title>
+    <title>AI Security Briefing - AI 安全简报</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-tertiary: #21262d;
+            --border-color: #30363d;
+            --text-primary: #f0f6fc;
+            --text-secondary: #8b949e;
+            --text-muted: #6e7681;
+            --accent-blue: #58a6ff;
+            --accent-green: #3fb950;
+            --accent-red: #f85149;
+            --accent-purple: #a371f7;
+            --accent-orange: #d29922;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background: #1a1a2e;
-            color: #eee;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
             line-height: 1.6;
-            padding: 20px;
+            -webkit-font-smoothing: antialiased;
         }
-        .container { max-width: 1200px; margin: 0 auto; }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
         header {
-            text-align: center;
-            padding: 30px 0;
-            border-bottom: 2px solid #e94560;
-            margin-bottom: 30px;
+            padding: 48px 0 32px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 48px;
         }
-        h1 { color: #e94560; font-size: 2em; margin-bottom: 10px; }
-        .subtitle { color: #888; }
-        
-        .briefing-list { display: flex; flex-direction: column; gap: 20px; }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 24px;
+        }
+
+        .header-left h1 {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-left h1 .shield-icon {
+            font-size: 32px;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .badge.active {
+            background: rgba(63, 185, 80, 0.1);
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        /* Main Content */
+        main {
+            padding-bottom: 64px;
+        }
+
+        /* Briefing List */
+        .briefing-list {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
         .briefing-item {
-            background: #16213e;
-            padding: 25px;
-            border-radius: 8px;
-            border-left: 3px solid #0f3460;
-            position: relative;
-        }
-        .briefing-item.new {
-            border-left-color: #e94560;
-            background: linear-gradient(135deg, #16213e 0%, #1a1a3e 100%);
-        }
-        .new-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #e94560;
-            color: #fff;
-            padding: 3px 10px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
             border-radius: 12px;
-            font-size: 0.75em;
-            font-weight: bold;
+            padding: 24px;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
         }
-        .briefing-date { color: #e94560; font-size: 0.9em; margin-bottom: 8px; }
-        .briefing-title { margin-bottom: 10px; }
+
+        .briefing-item:hover {
+            border-color: var(--accent-blue);
+            transform: translateX(4px);
+        }
+
+        .briefing-item.new {
+            border-color: var(--accent-blue);
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(88, 166, 255, 0.05) 100%);
+        }
+
+        .briefing-item.new::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--accent-blue);
+        }
+
+        .briefing-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .briefing-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: var(--text-muted);
+            background: var(--bg-tertiary);
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+        }
+
+        .new-badge {
+            background: rgba(88, 166, 255, 0.1);
+            color: var(--accent-blue);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .briefing-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
         .briefing-title a {
-            color: #fff;
+            color: var(--text-primary);
             text-decoration: none;
-            font-size: 1.2em;
         }
-        .briefing-title a:hover { color: #e94560; }
-        .briefing-summary { color: #aaa; margin-bottom: 15px; }
+
+        .briefing-title a:hover {
+            color: var(--accent-blue);
+        }
+
+        .briefing-summary {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 16px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .briefing-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
         .read-more {
-            color: #4fc3f7;
+            color: var(--accent-blue);
+            font-size: 14px;
+            font-weight: 500;
             text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
-        .read-more:hover { text-decoration: underline; }
-        
+
+        .read-more:hover {
+            text-decoration: underline;
+        }
+
+        .article-count {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        /* Empty State */
         .empty-state {
             text-align: center;
-            padding: 60px 20px;
-            color: #666;
+            padding: 80px 24px;
+            color: var(--text-muted);
         }
-        .empty-state p { margin-bottom: 20px; }
-        
+
+        .empty-state-icon {
+            font-size: 64px;
+            margin-bottom: 24px;
+            opacity: 0.5;
+        }
+
+        .empty-state p {
+            margin-bottom: 16px;
+            font-size: 16px;
+        }
+
+        /* Footer */
         footer {
+            border-top: 1px solid var(--border-color);
+            padding: 32px 0;
             text-align: center;
-            padding: 30px 0;
-            border-top: 1px solid #0f3460;
-            margin-top: 40px;
-            color: #666;
-            font-size: 0.9em;
+        }
+
+        .footer-content {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .footer-content a {
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
+
+        .footer-content a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 16px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .header-left h1 {
+                font-size: 24px;
+            }
+
+            .briefing-item {
+                padding: 20px;
+            }
+
+            .briefing-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>🛡️ AI 安全简报总览</h1>
-            <div class="subtitle">每日 AI 安全动态 · 全球视野</div>
+            <div class="header-content">
+                <div class="header-left">
+                    <h1>
+                        <span class="shield-icon">🛡️</span>
+                        AI Security Briefing
+                    </h1>
+                    <div class="subtitle">每日 AI 安全动态 · 全球技术视野</div>
+                </div>
+                <div class="header-right">
+                    <span class="badge active">● Live</span>
+                    <span class="badge">Daily Updates</span>
+                    <span class="badge">Open Source</span>
+                </div>
+            </div>
         </header>
-        
-        <div class="briefing-list">
-        <div class="briefing-item new">
-            <span class="new-badge">NEW</span>
-            <div class="briefing-date">2026-03-10</div>
-            <h3 class="briefing-title">
-                <a href="ai-security-20260310.html">AI 安全简报 2026-03-10</a>
-            </h3>
-            <div class="briefing-summary">政府工作报告首提"打造智能经济新形态"；AI 可能传播 15 年老漏洞；德克萨斯州 30 万份车祸报告数据泄露...</div>
-            <a href="ai-security-20260310.html" class="read-more">阅读全文 →</a>
-        </div>
 
-        <div class="briefing-item new">
-            <span class="new-badge">NEW</span>
-            <div class="briefing-date">2026-03-10</div>
-            <h3 class="briefing-title">
-                <a href="ai-security-20260310.html">AI 安全简报 2026-03-10</a>
-            </h3>
-            <div class="briefing-summary">本周，多个国家和国际组织发布了新的 AI 安全治理框架，加强对 AI 系统的监管和风险评估要求。欧盟 AI 法案实施细节进一步明确，美国 NIST 更新 AI 风险管理框架，中国发布生成式 AI 服务...</div>
-            <a href="ai-security-20260310.html" class="read-more">阅读全文 →</a>
-        </div>
+        <main>
+            <div class="briefing-list">
+                <article class="briefing-item new">
+                    <div class="briefing-header">
+                        <span class="briefing-date">2026-03-10</span>
+                        <span class="new-badge">New</span>
+                    </div>
+                    <h2 class="briefing-title">
+                        <a href="ai-security-20260310.html">AI 安全简报 2026-03-10</a>
+                    </h2>
+                    <div class="briefing-summary">
+                        政府工作报告首提"打造智能经济新形态"；AI 可能传播 15 年老漏洞；德克萨斯州 30 万份车祸报告数据泄露；欧盟 AI 法案实施细节明确
+                    </div>
+                    <div class="briefing-meta">
+                        <a href="ai-security-20260310.html" class="read-more">
+                            阅读全文 <span>→</span>
+                        </a>
+                        <span class="article-count">8 篇文章</span>
+                    </div>
+                </article>
+            </div>
+        </main>
 
-            
-        
         <footer>
-            <p>AI Security Briefing</p>
-            <p>GitHub: <a href="https://github.com/caoyu/ai-security-briefing" target="_blank" style="color: #4fc3f7;">caoyu/ai-security-briefing</a></p>
+            <div class="footer-content">
+                <p>AI Security Briefing — 开源 AI 安全情报项目</p>
+                <div class="footer-links">
+                    <a href="https://github.com/caoyu/ai-security-briefing" target="_blank">GitHub</a>
+                    <a href="https://github.com/caoyu/ai-security-briefing/issues" target="_blank">Issues</a>
+                    <a href="https://github.com/caoyu/ai-security-briefing/blob/main/LICENSE" target="_blank">License</a>
+                </div>
+            </div>
         </footer>
     </div>
 </body>
