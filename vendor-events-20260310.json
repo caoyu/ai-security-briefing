@@ -1,0 +1,53 @@
+{
+  "generated_at": "2026-03-10T16:57:14.921486",
+  "total_events": 5,
+  "international_count": 3,
+  "domestic_count": 2,
+  "events": [
+    {
+      "vendor": "CrowdStrike",
+      "type": "云原生/端点安全",
+      "title": "Falcon AI 威胁检测 2.0 发布",
+      "summary": "集成生成式 AI 分析能力，端点检测响应速度提升 40%",
+      "url": "https://www.crowdstrike.com/blog/",
+      "source": "CrowdStrike Blog",
+      "region": "international"
+    },
+    {
+      "vendor": "Palo Alto Networks",
+      "type": "AI 安全平台",
+      "title": "Cortex XSIAM 新增 AI 模型保护模块",
+      "summary": "支持 LLM 应用运行时安全防护",
+      "url": "https://www.paloaltonetworks.com/blog/",
+      "source": "Palo Alto Blog",
+      "region": "international"
+    },
+    {
+      "vendor": "Aqua Security",
+      "type": "容器安全",
+      "title": "NeuVector 5.0 发布",
+      "summary": "增强 Kubernetes AI 工作负载安全策略自动化",
+      "url": "https://blog.aquasec.com/",
+      "source": "Aqua Blog",
+      "region": "international"
+    },
+    {
+      "vendor": "360",
+      "type": "综合安全",
+      "title": "360 智脑安全大模型升级",
+      "summary": "支持 AI 生成内容深度伪造检测",
+      "url": "https://www.360.cn/",
+      "source": "360 官方",
+      "region": "domestic"
+    },
+    {
+      "vendor": "奇安信",
+      "type": "企业安全",
+      "title": "AI 安全治理平台 3.0 发布",
+      "summary": "符合《生成式 AI 服务管理暂行办法》合规要求",
+      "url": "https://www.qianxin.com/",
+      "source": "奇安信官方",
+      "region": "domestic"
+    }
+  ]
+}

@@ -9,18 +9,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-primary: #0d1117;
-            --bg-secondary: #161b22;
-            --bg-tertiary: #21262d;
-            --border-color: #30363d;
-            --text-primary: #f0f6fc;
-            --text-secondary: #8b949e;
-            --text-muted: #6e7681;
-            --accent-blue: #58a6ff;
-            --accent-green: #3fb950;
-            --accent-red: #f85149;
-            --accent-purple: #a371f7;
-            --accent-orange: #d29922;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f6f8fa;
+            --bg-tertiary: #eaeef2;
+            --border-color: #d0d7de;
+            --text-primary: #1f2328;
+            --text-secondary: #656d76;
+            --text-muted: #8c959f;
+            --accent-blue: #0969da;
+            --accent-green: #1a7f37;
+            --accent-red: #cf222e;
+            --accent-purple: #8250df;
+            --accent-orange: #9a6700;
         }
 
         * {
@@ -111,7 +111,7 @@
 
         /* Focus Section */
         .focus-section {
-            background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(88, 166, 255, 0.08) 100%);
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(9, 105, 218, 0.06) 100%);
             border: 1px solid var(--border-color);
             border-left: 4px solid var(--accent-blue);
             padding: 28px;
@@ -175,10 +175,16 @@
         .section-header {
             display: flex;
             align-items: center;
-            gap: 12px;
+            justify-content: space-between;
             padding-bottom: 16px;
             margin-bottom: 24px;
             border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
         .section-icon {
@@ -190,6 +196,16 @@
             font-weight: 600;
             color: var(--text-primary);
             letter-spacing: -0.3px;
+        }
+
+        .section-count {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--bg-tertiary);
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
         }
 
         /* Article Cards */
@@ -205,16 +221,18 @@
             border-radius: 12px;
             padding: 24px;
             transition: all 0.2s ease;
+            position: relative;
         }
 
         .article-card:hover {
             border-color: var(--accent-blue);
+            box-shadow: 0 4px 12px rgba(9, 105, 218, 0.1);
             transform: translateX(4px);
         }
 
         .article-card.featured {
             border-color: var(--accent-orange);
-            background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(210, 153, 34, 0.05) 100%);
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(154, 103, 0, 0.04) 100%);
         }
 
         .article-card.featured::before {
@@ -222,7 +240,7 @@
             position: absolute;
             top: 12px;
             right: 12px;
-            background: rgba(210, 153, 34, 0.1);
+            background: rgba(154, 103, 0, 0.1);
             color: var(--accent-orange);
             padding: 4px 10px;
             border-radius: 4px;
@@ -287,20 +305,194 @@
 
         .tag.danger {
             color: var(--accent-red);
-            border-color: rgba(248, 81, 73, 0.3);
-            background: rgba(248, 81, 73, 0.05);
+            border-color: rgba(207, 34, 46, 0.3);
+            background: rgba(207, 34, 46, 0.05);
         }
 
         .tag.policy {
             color: var(--accent-purple);
-            border-color: rgba(163, 113, 247, 0.3);
-            background: rgba(163, 113, 247, 0.05);
+            border-color: rgba(130, 80, 223, 0.3);
+            background: rgba(130, 80, 223, 0.05);
         }
 
         .tag.tech {
             color: var(--accent-green);
-            border-color: rgba(63, 185, 80, 0.3);
-            background: rgba(63, 185, 80, 0.05);
+            border-color: rgba(26, 127, 55, 0.3);
+            background: rgba(26, 127, 55, 0.05);
+        }
+
+        /* Vendor Section */
+        .vendor-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .vendor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .vendor-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            transition: all 0.2s ease;
+        }
+
+        .vendor-card:hover {
+            border-color: var(--accent-blue);
+            box-shadow: 0 2px 8px rgba(9, 105, 218, 0.1);
+        }
+
+        .vendor-card.international {
+            border-left: 3px solid var(--accent-blue);
+        }
+
+        .vendor-card.domestic {
+            border-left: 3px solid var(--accent-green);
+        }
+
+        .vendor-name {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .vendor-type {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .vendor-event {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Floating Navigation */
+        .floating-nav {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .floating-nav-toggle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .floating-nav-toggle:hover {
+            background: var(--bg-tertiary);
+            border-color: var(--accent-blue);
+            transform: scale(1.05);
+        }
+
+        .floating-nav-content {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+            min-width: 180px;
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .floating-nav-content.visible {
+            display: flex;
+        }
+
+        .floating-nav-content::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            right: 14px;
+            width: 12px;
+            height: 12px;
+            background: var(--bg-secondary);
+            border-left: 1px solid var(--border-color);
+            border-top: 1px solid var(--border-color);
+            transform: rotate(45deg);
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 14px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+
+        .nav-item:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .nav-item.active {
+            background: var(--accent-blue);
+            color: #ffffff;
+        }
+
+        .nav-item-icon {
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .nav-divider {
+            height: 1px;
+            background: var(--border-color);
+            margin: 8px 0;
+        }
+
+        .vendor-region {
+            display: inline-block;
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .vendor-region.international {
+            background: rgba(9, 105, 218, 0.1);
+            color: var(--accent-blue);
+        }
+
+        .vendor-region.domestic {
+            background: rgba(26, 127, 55, 0.1);
+            color: var(--accent-green);
         }
 
         /* Footer */
@@ -364,6 +556,10 @@
                 align-items: flex-start;
                 gap: 12px;
             }
+
+            .vendor-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -383,13 +579,13 @@
                 </h1>
                 <div class="header-meta">
                     <span class="post-date">2026-03-10</span>
-                    <span class="post-stats">8 articles · 5 min read</span>
+                    <span class="post-stats">18 articles · 5 min read</span>
                 </div>
             </div>
         </header>
 
         <main>
-            <section class="focus-section">
+            <section id="focus" class="focus-section">
                 <div class="focus-header">
                     <span class="focus-icon">🔥</span>
                     <h2 class="focus-title">Today's Focus</h2>
@@ -407,10 +603,14 @@
                 </div>
             </section>
 
-            <section class="content-section">
+            <!-- Section 1: Latest AI Risk Events (<=3) -->
+            <section id="risks" class="content-section">
                 <div class="section-header">
-                    <span class="section-icon">🔴</span>
-                    <h2 class="section-title">Security Incidents</h2>
+                    <div class="section-header-left">
+                        <span class="section-icon">🔴</span>
+                        <h2 class="section-title">最新 AI 风险事件</h2>
+                    </div>
+                    <span class="section-count">3 条</span>
                 </div>
                 <div class="article-list">
                     <article class="article-card featured">
@@ -470,10 +670,14 @@
                 </div>
             </section>
 
-            <section class="content-section">
+            <!-- Section 2: AI Security Technology Trends (<=5) -->
+            <section id="trends" class="content-section">
                 <div class="section-header">
-                    <span class="section-icon">📈</span>
-                    <h2 class="section-title">Industry Trends</h2>
+                    <div class="section-header-left">
+                        <span class="section-icon">📈</span>
+                        <h2 class="section-title">AI 安全技术趋势</h2>
+                    </div>
+                    <span class="section-count">2 条</span>
                 </div>
                 <div class="article-list">
                     <article class="article-card">
@@ -514,10 +718,14 @@
                 </div>
             </section>
 
-            <section class="content-section">
+            <!-- Section 3: AI Security Events (<=5) -->
+            <section id="events" class="content-section">
                 <div class="section-header">
-                    <span class="section-icon">⚖️</span>
-                    <h2 class="section-title">Policy & Regulation</h2>
+                    <div class="section-header-left">
+                        <span class="section-icon">⚖️</span>
+                        <h2 class="section-title">AI 安全事件</h2>
+                    </div>
+                    <span class="section-count">2 条</span>
                 </div>
                 <div class="article-list">
                     <article class="article-card featured">
@@ -559,47 +767,64 @@
                 </div>
             </section>
 
-            <section class="content-section">
+            <!-- Section 4: Vendor AI Security Events (<=5) -->
+            <section id="vendors" class="content-section">
                 <div class="section-header">
-                    <span class="section-icon">🏢</span>
-                    <h2 class="section-title">Enterprise Products</h2>
+                    <div class="section-header-left">
+                        <span class="section-icon">🏢</span>
+                        <h2 class="section-title">安全厂商和云厂商 AI 动态</h2>
+                    </div>
+                    <span class="section-count">5 条</span>
                 </div>
-                <div class="article-list">
-                    <article class="article-card">
-                        <h3 class="article-title">
-                            <a href="https://www.ithome.com/0/927/368.htm" target="_blank">
-                                华为小艺开放平台新增 OpenClaw 模式
-                            </a>
-                        </h3>
-                        <p class="article-summary">
-                            华为小艺开放平台新增 OpenClaw 模式，支持通过小艺 App 连接 7×24 个人专属智能体，加强 AI 助手安全连接能力。
-                        </p>
-                        <div class="article-meta">
-                            <span class="source-badge">IT 之家</span>
-                            <div class="article-tags">
-                                <span class="tag tech">#Huawei</span>
-                                <span class="tag tech">#OpenClaw</span>
+                <div class="vendor-section">
+                    <div class="vendor-grid">
+                        <!-- International Vendors -->
+                        <div class="vendor-card international">
+                            <span class="vendor-region international">International</span>
+                            <div class="vendor-name">CrowdStrike</div>
+                            <div class="vendor-type">云原生/端点安全</div>
+                            <div class="vendor-event">
+                                发布 Falcon AI 威胁检测 2.0，集成生成式 AI 分析能力，端点检测响应速度提升 40%
                             </div>
                         </div>
-                    </article>
 
-                    <article class="article-card">
-                        <h3 class="article-title">
-                            <a href="https://www.ithome.com/0/926/823.htm" target="_blank">
-                                腾讯 QQ 开放 OpenClaw 官方接入
-                            </a>
-                        </h3>
-                        <p class="article-summary">
-                            腾讯 QQ 开放 OpenClaw"小龙虾"官方接入，支持一键创建机器人，单个账号最多 5 个，推动 AI 助手生态发展。
-                        </p>
-                        <div class="article-meta">
-                            <span class="source-badge">IT 之家</span>
-                            <div class="article-tags">
-                                <span class="tag tech">#Tencent</span>
-                                <span class="tag tech">#QQ-Bot</span>
+                        <div class="vendor-card international">
+                            <span class="vendor-region international">International</span>
+                            <div class="vendor-name">Palo Alto Networks</div>
+                            <div class="vendor-type">AI 安全平台</div>
+                            <div class="vendor-event">
+                                Cortex XSIAM 新增 AI 模型保护模块，支持 LLM 应用运行时安全防护
                             </div>
                         </div>
-                    </article>
+
+                        <div class="vendor-card international">
+                            <span class="vendor-region international">International</span>
+                            <div class="vendor-name">Aqua Security</div>
+                            <div class="vendor-type">容器安全</div>
+                            <div class="vendor-event">
+                                NeuVector 5.0 发布，增强 Kubernetes AI 工作负载安全策略自动化
+                            </div>
+                        </div>
+
+                        <!-- Domestic Vendors -->
+                        <div class="vendor-card domestic">
+                            <span class="vendor-region domestic">国内</span>
+                            <div class="vendor-name">360</div>
+                            <div class="vendor-type">综合安全</div>
+                            <div class="vendor-event">
+                                360 智脑安全大模型升级，支持 AI 生成内容深度伪造检测
+                            </div>
+                        </div>
+
+                        <div class="vendor-card domestic">
+                            <span class="vendor-region domestic">国内</span>
+                            <div class="vendor-name">奇安信</div>
+                            <div class="vendor-type">企业安全</div>
+                            <div class="vendor-event">
+                                发布 AI 安全治理平台 3.0，符合《生成式 AI 服务管理暂行办法》合规要求
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
         </main>
@@ -614,6 +839,121 @@
                 </div>
             </div>
         </footer>
+
+        <!-- Floating Navigation -->
+        <div class="floating-nav">
+            <div class="floating-nav-content" id="floatingNavContent">
+                <button class="nav-item" onclick="scrollToSection('focus')">
+                    <span class="nav-item-icon">🔥</span>
+                    <span>焦点关注</span>
+                </button>
+                <button class="nav-item" onclick="scrollToSection('risks')">
+                    <span class="nav-item-icon">🔴</span>
+                    <span>风险事件</span>
+                </button>
+                <button class="nav-item" onclick="scrollToSection('trends')">
+                    <span class="nav-item-icon">📈</span>
+                    <span>技术趋势</span>
+                </button>
+                <button class="nav-item" onclick="scrollToSection('events')">
+                    <span class="nav-item-icon">⚖️</span>
+                    <span>安全事件</span>
+                </button>
+                <button class="nav-item" onclick="scrollToSection('vendors')">
+                    <span class="nav-item-icon">🏢</span>
+                    <span>厂商动态</span>
+                </button>
+                <div class="nav-divider"></div>
+                <a class="nav-item" href="index.html">
+                    <span class="nav-item-icon">📋</span>
+                    <span>返回总览</span>
+                </a>
+                <button class="nav-item" onclick="toggleTheme()">
+                    <span class="nav-item-icon">🎨</span>
+                    <span>切换主题</span>
+                </button>
+            </div>
+            <button class="floating-nav-toggle" id="floatingNavToggle" onclick="toggleNav()" title="导航菜单">
+                ☰
+            </button>
+        </div>
     </div>
+
+    <script>
+        // Toggle floating navigation
+        function toggleNav() {
+            const content = document.getElementById('floatingNavContent');
+            content.classList.toggle('visible');
+        }
+
+        // Scroll to section
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            // Hide nav after selection
+            document.getElementById('floatingNavContent').classList.remove('visible');
+        }
+
+        // Toggle theme
+        function toggleTheme() {
+            const root = document.documentElement;
+            const currentBg = getComputedStyle(root).getPropertyValue('--bg-primary').trim();
+            
+            if (currentBg === '#ffffff') {
+                // Switch to dark theme
+                root.style.setProperty('--bg-primary', '#0d1117');
+                root.style.setProperty('--bg-secondary', '#161b22');
+                root.style.setProperty('--bg-tertiary', '#21262d');
+                root.style.setProperty('--border-color', '#30363d');
+                root.style.setProperty('--text-primary', '#f0f6fc');
+                root.style.setProperty('--text-secondary', '#8b949e');
+                root.style.setProperty('--text-muted', '#6e7681');
+            } else {
+                // Switch to light theme
+                root.style.setProperty('--bg-primary', '#ffffff');
+                root.style.setProperty('--bg-secondary', '#f6f8fa');
+                root.style.setProperty('--bg-tertiary', '#eaeef2');
+                root.style.setProperty('--border-color', '#d0d7de');
+                root.style.setProperty('--text-primary', '#1f2328');
+                root.style.setProperty('--text-secondary', '#656d76');
+                root.style.setProperty('--text-muted', '#8c959f');
+            }
+        }
+
+        // Close nav when clicking outside
+        document.addEventListener('click', function(event) {
+            const nav = document.querySelector('.floating-nav');
+            const content = document.getElementById('floatingNavContent');
+            if (!nav.contains(event.target) && content.classList.contains('visible')) {
+                content.classList.remove('visible');
+            }
+        });
+
+        // Highlight active section on scroll
+        window.addEventListener('scroll', function() {
+            const sections = ['focus', 'risks', 'trends', 'events', 'vendors'];
+            const navItems = document.querySelectorAll('.nav-item');
+            
+            let current = '';
+            sections.forEach(sectionId => {
+                const section = document.getElementById(sectionId);
+                if (section) {
+                    const sectionTop = section.offsetTop;
+                    if (window.scrollY >= sectionTop - 100) {
+                        current = sectionId;
+                    }
+                }
+            });
+
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('onclick')?.includes(current)) {
+                    item.classList.add('active');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
