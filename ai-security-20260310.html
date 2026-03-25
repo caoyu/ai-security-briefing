@@ -220,14 +220,15 @@
             border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 24px;
-            transition: all 0.2s ease;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
         }
 
         .article-card:hover {
             border-color: var(--accent-blue);
-            box-shadow: 0 4px 12px rgba(9, 105, 218, 0.1);
-            transform: translateX(4px);
+            box-shadow: 0 8px 24px rgba(9, 105, 218, 0.15);
+            transform: translateX(6px);
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(9, 105, 218, 0.02) 100%);
         }
 
         .article-card.featured {
@@ -323,7 +324,7 @@
 
         /* Vendor Section */
         .vendor-section {
-            background: var(--bg-secondary);
+            background: var(--bg-primary);
             border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 24px;
@@ -336,16 +337,20 @@
         }
 
         .vendor-card {
-            background: var(--bg-primary);
+            background: var(--bg-secondary);
             border: 1px solid var(--border-color);
             border-radius: 8px;
             padding: 16px;
-            transition: all 0.2s ease;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            cursor: pointer;
         }
 
         .vendor-card:hover {
             border-color: var(--accent-blue);
-            box-shadow: 0 2px 8px rgba(9, 105, 218, 0.1);
+            box-shadow: 0 8px 24px rgba(9, 105, 218, 0.2);
+            transform: translateY(-4px);
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(9, 105, 218, 0.03) 100%);
         }
 
         .vendor-card.international {
@@ -354,6 +359,21 @@
 
         .vendor-card.domestic {
             border-left: 3px solid var(--accent-green);
+        }
+
+        .vendor-card .vendor-link {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
+        }
+
+        .vendor-content {
+            position: relative;
+            z-index: 2;
+            pointer-events: none;
         }
 
         .vendor-name {
@@ -374,106 +394,21 @@
             font-size: 13px;
             color: var(--text-secondary);
             line-height: 1.5;
+            margin-bottom: 12px;
         }
 
-        /* Floating Navigation */
-        .floating-nav {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .floating-nav-toggle {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            transition: all 0.2s ease;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .floating-nav-toggle:hover {
-            background: var(--bg-tertiary);
-            border-color: var(--accent-blue);
-            transform: scale(1.05);
-        }
-
-        .floating-nav-content {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 12px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-            min-width: 180px;
-            display: none;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .floating-nav-content.visible {
-            display: flex;
-        }
-
-        .floating-nav-content::before {
-            content: '';
-            position: absolute;
-            top: -6px;
-            right: 14px;
-            width: 12px;
-            height: 12px;
-            background: var(--bg-secondary);
-            border-left: 1px solid var(--border-color);
-            border-top: 1px solid var(--border-color);
-            transform: rotate(45deg);
-        }
-
-        .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 12px;
-            border-radius: 8px;
+        .vendor-source {
+            font-size: 12px;
+            color: var(--accent-blue);
             text-decoration: none;
-            color: var(--text-secondary);
-            font-size: 14px;
-            transition: all 0.2s ease;
-            cursor: pointer;
-            border: none;
-            background: transparent;
-            width: 100%;
-            text-align: left;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: 500;
         }
 
-        .nav-item:hover {
-            background: var(--bg-tertiary);
-            color: var(--text-primary);
-        }
-
-        .nav-item.active {
-            background: var(--accent-blue);
-            color: #ffffff;
-        }
-
-        .nav-item-icon {
-            font-size: 16px;
-            width: 20px;
-            text-align: center;
-        }
-
-        .nav-divider {
-            height: 1px;
-            background: var(--border-color);
-            margin: 8px 0;
+        .vendor-source:hover {
+            text-decoration: underline;
         }
 
         .vendor-region {
@@ -515,6 +450,24 @@
 
         .footer-content a:hover {
             text-decoration: underline;
+        }
+
+        .publish-time {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 8px;
+        }
+
+        .publish-time span:first-child {
+            font-size: 16px;
         }
 
         .footer-links {
@@ -585,7 +538,7 @@
         </header>
 
         <main>
-            <section id="focus" class="focus-section">
+            <section class="focus-section">
                 <div class="focus-header">
                     <span class="focus-icon">🔥</span>
                     <h2 class="focus-title">Today's Focus</h2>
@@ -604,7 +557,7 @@
             </section>
 
             <!-- Section 1: Latest AI Risk Events (<=3) -->
-            <section id="risks" class="content-section">
+            <section class="content-section">
                 <div class="section-header">
                     <div class="section-header-left">
                         <span class="section-icon">🔴</span>
@@ -671,7 +624,7 @@
             </section>
 
             <!-- Section 2: AI Security Technology Trends (<=5) -->
-            <section id="trends" class="content-section">
+            <section class="content-section">
                 <div class="section-header">
                     <div class="section-header-left">
                         <span class="section-icon">📈</span>
@@ -719,7 +672,7 @@
             </section>
 
             <!-- Section 3: AI Security Events (<=5) -->
-            <section id="events" class="content-section">
+            <section class="content-section">
                 <div class="section-header">
                     <div class="section-header-left">
                         <span class="section-icon">⚖️</span>
@@ -768,7 +721,7 @@
             </section>
 
             <!-- Section 4: Vendor AI Security Events (<=5) -->
-            <section id="vendors" class="content-section">
+            <section class="content-section">
                 <div class="section-header">
                     <div class="section-header-left">
                         <span class="section-icon">🏢</span>
@@ -780,48 +733,83 @@
                     <div class="vendor-grid">
                         <!-- International Vendors -->
                         <div class="vendor-card international">
-                            <span class="vendor-region international">International</span>
-                            <div class="vendor-name">CrowdStrike</div>
-                            <div class="vendor-type">云原生/端点安全</div>
-                            <div class="vendor-event">
-                                发布 Falcon AI 威胁检测 2.0，集成生成式 AI 分析能力，端点检测响应速度提升 40%
+                            <a href="https://www.crowdstrike.com/blog/" target="_blank" class="vendor-link" title="查看来源"></a>
+                            <div class="vendor-content">
+                                <span class="vendor-region international">International</span>
+                                <div class="vendor-name">CrowdStrike</div>
+                                <div class="vendor-type">云原生/端点安全</div>
+                                <div class="vendor-event">
+                                    发布 Falcon AI 威胁检测 2.0，集成生成式 AI 分析能力，端点检测响应速度提升 40%
+                                </div>
+                                <a href="https://www.crowdstrike.com/blog/" target="_blank" class="vendor-source">
+                                    <span>📰</span>
+                                    <span>CrowdStrike Blog</span>
+                                </a>
                             </div>
                         </div>
 
                         <div class="vendor-card international">
-                            <span class="vendor-region international">International</span>
-                            <div class="vendor-name">Palo Alto Networks</div>
-                            <div class="vendor-type">AI 安全平台</div>
-                            <div class="vendor-event">
-                                Cortex XSIAM 新增 AI 模型保护模块，支持 LLM 应用运行时安全防护
+                            <a href="https://www.paloaltonetworks.com/blog/" target="_blank" class="vendor-link" title="查看来源"></a>
+                            <div class="vendor-content">
+                                <span class="vendor-region international">International</span>
+                                <div class="vendor-name">Palo Alto Networks</div>
+                                <div class="vendor-type">AI 安全平台</div>
+                                <div class="vendor-event">
+                                    Cortex XSIAM 新增 AI 模型保护模块，支持 LLM 应用运行时安全防护
+                                </div>
+                                <a href="https://www.paloaltonetworks.com/blog/" target="_blank" class="vendor-source">
+                                    <span>📰</span>
+                                    <span>Palo Alto Blog</span>
+                                </a>
                             </div>
                         </div>
 
                         <div class="vendor-card international">
-                            <span class="vendor-region international">International</span>
-                            <div class="vendor-name">Aqua Security</div>
-                            <div class="vendor-type">容器安全</div>
-                            <div class="vendor-event">
-                                NeuVector 5.0 发布，增强 Kubernetes AI 工作负载安全策略自动化
+                            <a href="https://blog.aquasec.com/" target="_blank" class="vendor-link" title="查看来源"></a>
+                            <div class="vendor-content">
+                                <span class="vendor-region international">International</span>
+                                <div class="vendor-name">Aqua Security</div>
+                                <div class="vendor-type">容器安全</div>
+                                <div class="vendor-event">
+                                    NeuVector 5.0 发布，增强 Kubernetes AI 工作负载安全策略自动化
+                                </div>
+                                <a href="https://blog.aquasec.com/" target="_blank" class="vendor-source">
+                                    <span>📰</span>
+                                    <span>Aqua Blog</span>
+                                </a>
                             </div>
                         </div>
 
                         <!-- Domestic Vendors -->
                         <div class="vendor-card domestic">
-                            <span class="vendor-region domestic">国内</span>
-                            <div class="vendor-name">360</div>
-                            <div class="vendor-type">综合安全</div>
-                            <div class="vendor-event">
-                                360 智脑安全大模型升级，支持 AI 生成内容深度伪造检测
+                            <a href="https://www.360.cn/" target="_blank" class="vendor-link" title="查看来源"></a>
+                            <div class="vendor-content">
+                                <span class="vendor-region domestic">国内</span>
+                                <div class="vendor-name">360</div>
+                                <div class="vendor-type">综合安全</div>
+                                <div class="vendor-event">
+                                    360 智脑安全大模型升级，支持 AI 生成内容深度伪造检测
+                                </div>
+                                <a href="https://www.360.cn/" target="_blank" class="vendor-source">
+                                    <span>📰</span>
+                                    <span>360 官方</span>
+                                </a>
                             </div>
                         </div>
 
                         <div class="vendor-card domestic">
-                            <span class="vendor-region domestic">国内</span>
-                            <div class="vendor-name">奇安信</div>
-                            <div class="vendor-type">企业安全</div>
-                            <div class="vendor-event">
-                                发布 AI 安全治理平台 3.0，符合《生成式 AI 服务管理暂行办法》合规要求
+                            <a href="https://www.qianxin.com/" target="_blank" class="vendor-link" title="查看来源"></a>
+                            <div class="vendor-content">
+                                <span class="vendor-region domestic">国内</span>
+                                <div class="vendor-name">奇安信</div>
+                                <div class="vendor-type">企业安全</div>
+                                <div class="vendor-event">
+                                    发布 AI 安全治理平台 3.0，符合《生成式 AI 服务管理暂行办法》合规要求
+                                </div>
+                                <a href="https://www.qianxin.com/" target="_blank" class="vendor-source">
+                                    <span>📰</span>
+                                    <span>奇安信官方</span>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -831,7 +819,10 @@
 
         <footer>
             <div class="footer-content">
-                <p>AI Security Briefing | Generated on 2026-03-10 16:13:10</p>
+                <div class="publish-time">
+                    <span>🕐</span><span>发布时间：2026-03-10 20:52:25 GMT+8</span>
+                </div>
+                <p style="margin-top: 12px;">AI Security Briefing | Generated on 2026-03-10 20:52:25</p>
                 <div class="footer-links">
                     <a href="https://github.com/caoyu/ai-security-briefing" target="_blank">GitHub</a>
                     <a href="https://github.com/caoyu/ai-security-briefing/issues" target="_blank">Issues</a>
@@ -839,121 +830,6 @@
                 </div>
             </div>
         </footer>
-
-        <!-- Floating Navigation -->
-        <div class="floating-nav">
-            <div class="floating-nav-content" id="floatingNavContent">
-                <button class="nav-item" onclick="scrollToSection('focus')">
-                    <span class="nav-item-icon">🔥</span>
-                    <span>焦点关注</span>
-                </button>
-                <button class="nav-item" onclick="scrollToSection('risks')">
-                    <span class="nav-item-icon">🔴</span>
-                    <span>风险事件</span>
-                </button>
-                <button class="nav-item" onclick="scrollToSection('trends')">
-                    <span class="nav-item-icon">📈</span>
-                    <span>技术趋势</span>
-                </button>
-                <button class="nav-item" onclick="scrollToSection('events')">
-                    <span class="nav-item-icon">⚖️</span>
-                    <span>安全事件</span>
-                </button>
-                <button class="nav-item" onclick="scrollToSection('vendors')">
-                    <span class="nav-item-icon">🏢</span>
-                    <span>厂商动态</span>
-                </button>
-                <div class="nav-divider"></div>
-                <a class="nav-item" href="index.html">
-                    <span class="nav-item-icon">📋</span>
-                    <span>返回总览</span>
-                </a>
-                <button class="nav-item" onclick="toggleTheme()">
-                    <span class="nav-item-icon">🎨</span>
-                    <span>切换主题</span>
-                </button>
-            </div>
-            <button class="floating-nav-toggle" id="floatingNavToggle" onclick="toggleNav()" title="导航菜单">
-                ☰
-            </button>
-        </div>
     </div>
-
-    <script>
-        // Toggle floating navigation
-        function toggleNav() {
-            const content = document.getElementById('floatingNavContent');
-            content.classList.toggle('visible');
-        }
-
-        // Scroll to section
-        function scrollToSection(sectionId) {
-            const section = document.getElementById(sectionId);
-            if (section) {
-                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-            // Hide nav after selection
-            document.getElementById('floatingNavContent').classList.remove('visible');
-        }
-
-        // Toggle theme
-        function toggleTheme() {
-            const root = document.documentElement;
-            const currentBg = getComputedStyle(root).getPropertyValue('--bg-primary').trim();
-            
-            if (currentBg === '#ffffff') {
-                // Switch to dark theme
-                root.style.setProperty('--bg-primary', '#0d1117');
-                root.style.setProperty('--bg-secondary', '#161b22');
-                root.style.setProperty('--bg-tertiary', '#21262d');
-                root.style.setProperty('--border-color', '#30363d');
-                root.style.setProperty('--text-primary', '#f0f6fc');
-                root.style.setProperty('--text-secondary', '#8b949e');
-                root.style.setProperty('--text-muted', '#6e7681');
-            } else {
-                // Switch to light theme
-                root.style.setProperty('--bg-primary', '#ffffff');
-                root.style.setProperty('--bg-secondary', '#f6f8fa');
-                root.style.setProperty('--bg-tertiary', '#eaeef2');
-                root.style.setProperty('--border-color', '#d0d7de');
-                root.style.setProperty('--text-primary', '#1f2328');
-                root.style.setProperty('--text-secondary', '#656d76');
-                root.style.setProperty('--text-muted', '#8c959f');
-            }
-        }
-
-        // Close nav when clicking outside
-        document.addEventListener('click', function(event) {
-            const nav = document.querySelector('.floating-nav');
-            const content = document.getElementById('floatingNavContent');
-            if (!nav.contains(event.target) && content.classList.contains('visible')) {
-                content.classList.remove('visible');
-            }
-        });
-
-        // Highlight active section on scroll
-        window.addEventListener('scroll', function() {
-            const sections = ['focus', 'risks', 'trends', 'events', 'vendors'];
-            const navItems = document.querySelectorAll('.nav-item');
-            
-            let current = '';
-            sections.forEach(sectionId => {
-                const section = document.getElementById(sectionId);
-                if (section) {
-                    const sectionTop = section.offsetTop;
-                    if (window.scrollY >= sectionTop - 100) {
-                        current = sectionId;
-                    }
-                }
-            });
-
-            navItems.forEach(item => {
-                item.classList.remove('active');
-                if (item.getAttribute('onclick')?.includes(current)) {
-                    item.classList.add('active');
-                }
-            });
-        });
-    </script>
 </body>
 </html>

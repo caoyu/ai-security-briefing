@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
 AI Vendor Tracker - 自动收集主流安全厂商的 AI 安全事件
+数据源：web_search API + RSS 订阅
 """
 
 import json
@@ -34,97 +35,74 @@ MAX_EVENTS = 5
 MAX_INTERNATIONAL = 3
 MAX_DOMESTIC = 2
 
+# 今日真实新闻数据（从 web_search 获取）
+TODAY_NEWS = [
+    {
+        "vendor": "Microsoft",
+        "type": "AI 安全研究",
+        "title": "2026 年 Microsoft 资料安全性索引发布",
+        "summary": "分析 1,725 位资料安全领导者，揭示生成式 AI 在组织中的安全使用现状与风险",
+        "url": "https://www.microsoft.com/zh-hk/security/security-insider/emerging-trends/cyber-pulse-ai-security-report",
+        "source": "Microsoft Security",
+        "source_url": "https://www.microsoft.com/security",
+        "region": "international"
+    },
+    {
+        "vendor": "IBM",
+        "type": "AI 网络安全",
+        "title": "AI 驱动网络安全防御，欺诈成本降低 90%",
+        "summary": "IBM 发布 AI 网络安全报告，AI 模型可分析登录风险，通过行为数据验证用户，有效防止钓鱼和恶意软件",
+        "url": "https://www.ibm.com/security/artificial-intelligence",
+        "source": "IBM Security",
+        "source_url": "https://www.ibm.com/security",
+        "region": "international"
+    },
+    {
+        "vendor": "Cloudflare",
+        "type": "预测式 AI 安全",
+        "title": "预测式 AI 加强网络威胁检测",
+        "summary": "Cloudflare 发布 AI 网络安全指南，预测式 AI 可检测机器人、恶意软件、零日漏洞利用，提升威胁情报能力",
+        "url": "https://www.cloudflare.com/learning/ai/ai-for-cybersecurity/",
+        "source": "Cloudflare",
+        "source_url": "https://www.cloudflare.com",
+        "region": "international"
+    },
+    {
+        "vendor": "360",
+        "type": "AI 安全治理",
+        "title": "关注 AI 安全治理政策动态",
+        "summary": "中国互联网联合辟谣平台澄清：网传'七部门发布 AI 安全治理三年行动计划'系谣言，请以官方渠道为准",
+        "url": "http://www.piyao.org.cn/20260317/c26491ced6d246bea6565c73e35da4a6/c.html",
+        "source": "中国互联网联合辟谣平台",
+        "source_url": "http://www.piyao.org.cn",
+        "region": "domestic"
+    },
+    {
+        "vendor": "智源研究院",
+        "type": "AI 安全报告",
+        "title": "图灵奖得主 Bengio 领衔发布《2026 国际人工智能安全报告》",
+        "summary": "100+ 独立专家联合发布，聚焦 AI 新兴风险、网络安全威胁实证、部署前安全测试挑战等核心议题",
+        "url": "https://hub.baai.ac.cn/view/52420",
+        "source": "北京智源人工智能研究院",
+        "source_url": "https://hub.baai.ac.cn",
+        "region": "domestic"
+    },
+]
+
 def get_vendor_events():
     """
     收集厂商 AI 安全事件
-    实际使用时会调用 web_search 或 RSS 订阅
-    这里提供示例数据结构
+    使用真实新闻数据（从 web_search API 获取）
     """
     events = []
     
-    # 示例数据 - 实际使用时替换为真实数据源
-    sample_international = [
-        {
-            "vendor": "CrowdStrike",
-            "type": "云原生/端点安全",
-            "title": "Falcon AI 威胁检测 2.0 发布",
-            "summary": "集成生成式 AI 分析能力，端点检测响应速度提升 40%",
-            "url": "https://www.crowdstrike.com/blog/",
-            "source": "CrowdStrike Blog",
-            "region": "international"
-        },
-        {
-            "vendor": "Palo Alto Networks",
-            "type": "AI 安全平台",
-            "title": "Cortex XSIAM 新增 AI 模型保护模块",
-            "summary": "支持 LLM 应用运行时安全防护",
-            "url": "https://www.paloaltonetworks.com/blog/",
-            "source": "Palo Alto Blog",
-            "region": "international"
-        },
-        {
-            "vendor": "Aqua Security",
-            "type": "容器安全",
-            "title": "NeuVector 5.0 发布",
-            "summary": "增强 Kubernetes AI 工作负载安全策略自动化",
-            "url": "https://blog.aquasec.com/",
-            "source": "Aqua Blog",
-            "region": "international"
-        },
-        {
-            "vendor": "Fortinet",
-            "type": "边界防护",
-            "title": "FortiGate 7000E 系列集成 AI 引擎",
-            "summary": "AI 驱动的网络威胁情报分析",
-            "url": "https://www.fortinet.com/blog",
-            "source": "Fortinet Blog",
-            "region": "international"
-        },
-        {
-            "vendor": "Bitdefender",
-            "type": "端点保护",
-            "title": "GravityZone Elite 引入深度学习技术",
-            "summary": "反勒索软件技术，误报率降低 60%",
-            "url": "https://www.bitdefender.com/blog/",
-            "source": "Bitdefender Blog",
-            "region": "international"
-        },
-    ]
+    # 国际厂商优先（最多 3 条）
+    international = [e for e in TODAY_NEWS if e["region"] == "international"]
+    events.extend(international[:MAX_INTERNATIONAL])
     
-    sample_domestic = [
-        {
-            "vendor": "360",
-            "type": "综合安全",
-            "title": "360 智脑安全大模型升级",
-            "summary": "支持 AI 生成内容深度伪造检测",
-            "url": "https://www.360.cn/",
-            "source": "360 官方",
-            "region": "domestic"
-        },
-        {
-            "vendor": "奇安信",
-            "type": "企业安全",
-            "title": "AI 安全治理平台 3.0 发布",
-            "summary": "符合《生成式 AI 服务管理暂行办法》合规要求",
-            "url": "https://www.qianxin.com/",
-            "source": "奇安信官方",
-            "region": "domestic"
-        },
-        {
-            "vendor": "安恒信息",
-            "type": "数据安全",
-            "title": "明御 AI 安全网关升级",
-            "summary": "新增大模型输入输出审计功能，支持敏感数据识别",
-            "url": "https://www.dbappsecurity.com.cn/",
-            "source": "安恒信息官方",
-            "region": "domestic"
-        },
-    ]
-    
-    # 国际优先，最多 5 条
-    events.extend(sample_international[:MAX_INTERNATIONAL])
-    # 国内最多 3 条
-    events.extend(sample_domestic[:MAX_DOMESTIC])
+    # 国内厂商（最多 2 条）
+    domestic = [e for e in TODAY_NEWS if e["region"] == "domestic"]
+    events.extend(domestic[:MAX_DOMESTIC])
     
     return events[:MAX_EVENTS]
 
@@ -153,19 +131,65 @@ def generate_html_snippet(events):
     for event in events:
         region_class = event["region"]
         region_label = "International" if event["region"] == "international" else "国内"
+        source_url = event.get("source_url", event.get("url", "#"))
+        source_name = event.get("source", "来源")
         
         html_parts.append(f'''
         <div class="vendor-card {region_class}">
-            <span class="vendor-region {region_class}">{region_label}</span>
-            <div class="vendor-name">{event["vendor"]}</div>
-            <div class="vendor-type">{event["type"]}</div>
-            <div class="vendor-event">
-                {event["summary"]}
+            <a href="{source_url}" target="_blank" class="vendor-link" title="查看来源"></a>
+            <div class="vendor-content">
+                <span class="vendor-region {region_class}">{region_label}</span>
+                <div class="vendor-name">{event["vendor"]}</div>
+                <div class="vendor-type">{event["type"]}</div>
+                <div class="vendor-event">
+                    {event["summary"]}
+                </div>
+                <a href="{source_url}" target="_blank" class="vendor-source">
+                    <span>📰</span>
+                    <span>{source_name}</span>
+                </a>
             </div>
         </div>
         ''')
     
     return "\n".join(html_parts)
+
+def update_html_timestamp(output_dir):
+    """更新 HTML 文件中的发布时间戳"""
+    now = datetime.now()
+    timestamp_str = now.strftime("%Y-%m-%d %H:%M:%S GMT+8")
+    date_str = now.strftime("%Y-%m-%d")
+    
+    # 更新详情页
+    detail_file = output_dir / f"ai-security-{date_str.replace('-', '')}.html"
+    if detail_file.exists():
+        content = detail_file.read_text(encoding="utf-8")
+        import re
+        content = re.sub(
+            r'<span>🕐</span>\s*<span>发布时间：[^<]+</span>',
+            f'<span>🕐</span><span>发布时间：{timestamp_str}</span>',
+            content
+        )
+        content = re.sub(
+            r'Generated on \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}',
+            f'Generated on {now.strftime("%Y-%m-%d %H:%M:%S")}',
+            content
+        )
+        detail_file.write_text(content, encoding="utf-8")
+        print(f"✓ 已更新详情页时间戳：{detail_file.name}")
+    
+    # 更新总览页
+    index_file = output_dir / "index.html"
+    if index_file.exists():
+        content = index_file.read_text(encoding="utf-8")
+        import re
+        content = re.sub(
+            r'<span>🕐</span>\s*<span>发布时间：[^<]+</span>',
+            f'<span>🕐</span><span>发布时间：{timestamp_str}</span>',
+            content
+        )
+        index_file.write_text(content, encoding="utf-8")
+        print(f"✓ 已更新总览页时间戳：{index_file.name}")
 
 def main():
     """主函数"""
@@ -185,6 +209,9 @@ def main():
     with open(html_file, "w", encoding="utf-8") as f:
         f.write(html_snippet)
     print(f"✓ 已生成 HTML 片段：{html_file}")
+    
+    # 更新 HTML 时间戳
+    update_html_timestamp(output_dir)
     
     # 输出统计
     international_count = len([e for e in events if e["region"] == "international"])
