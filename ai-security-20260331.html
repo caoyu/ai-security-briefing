@@ -19,46 +19,20 @@
             --accent-blue: #0969da;
             --accent-green: #1a7f37;
             --accent-red: #cf222e;
-            --accent-purple: #8250df;
             --accent-orange: #9a6700;
             --danger-bg: rgba(207, 34, 46, 0.1);
             --warning-bg: rgba(210, 153, 34, 0.1);
-            --info-bg: rgba(9, 105, 218, 0.1);
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
             line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
         }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        header {
-            padding: 48px 0 32px;
-            border-bottom: 1px solid var(--border-color);
-            margin-bottom: 48px;
-        }
-
-        .header-nav {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-
+        .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+        header { padding: 48px 0 32px; border-bottom: 1px solid var(--border-color); margin-bottom: 48px; }
+        .header-nav { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
         .back-link {
             color: var(--text-secondary);
             text-decoration: none;
@@ -72,13 +46,7 @@
             background: var(--bg-secondary);
             transition: all 0.2s ease;
         }
-
-        .back-link:hover {
-            color: var(--text-primary);
-            border-color: var(--accent-blue);
-            background: var(--bg-tertiary);
-        }
-
+        .back-link:hover { border-color: var(--accent-blue); background: var(--bg-tertiary); }
         .header-content h1 {
             font-size: 32px;
             font-weight: 700;
@@ -88,14 +56,7 @@
             align-items: center;
             gap: 12px;
         }
-
-        .header-meta {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
+        .header-meta { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
         .post-date {
             font-family: 'JetBrains Mono', monospace;
             font-size: 14px;
@@ -105,12 +66,7 @@
             border-radius: 4px;
             border: 1px solid var(--border-color);
         }
-
-        .post-stats {
-            color: var(--text-secondary);
-            font-size: 14px;
-        }
-
+        .post-stats { color: var(--text-secondary); font-size: 14px; }
         .focus-section {
             background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(207, 34, 46, 0.08) 100%);
             border: 1px solid var(--border-color);
@@ -119,50 +75,11 @@
             margin-bottom: 48px;
             border-radius: 12px;
         }
-
-        .focus-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 16px;
-        }
-
-        .focus-icon {
-            font-size: 24px;
-        }
-
-        .focus-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .focus-summary {
-            color: var(--text-secondary);
-            font-size: 15px;
-            margin-bottom: 16px;
-            line-height: 1.7;
-        }
-
-        .focus-source {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .source-tag {
-            font-size: 13px;
-            color: var(--text-muted);
-            background: var(--bg-tertiary);
-            padding: 4px 10px;
-            border-radius: 4px;
-            border: 1px solid var(--border-color);
-        }
-
-        .content-section {
-            margin-bottom: 48px;
-        }
-
+        .focus-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+        .focus-icon { font-size: 24px; }
+        .focus-title { font-size: 18px; font-weight: 600; }
+        .focus-summary { color: var(--text-secondary); font-size: 15px; line-height: 1.7; }
+        .content-section { margin-bottom: 48px; }
         .section-header {
             display: flex;
             align-items: center;
@@ -171,33 +88,16 @@
             margin-bottom: 24px;
             border-bottom: 1px solid var(--border-color);
         }
-
-        .section-header-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .section-icon {
-            font-size: 20px;
-        }
-
-        .section-title {
-            font-size: 20px;
-            font-weight: 600;
-            color: var(--text-primary);
-            letter-spacing: -0.3px;
-        }
-
+        .section-header-left { display: flex; align-items: center; gap: 12px; }
+        .section-icon { font-size: 20px; }
+        .section-title { font-size: 20px; font-weight: 600; }
         .section-count {
             font-size: 13px;
             color: var(--text-muted);
             background: var(--bg-tertiary);
             padding: 4px 10px;
             border-radius: 4px;
-            border: 1px solid var(--border-color);
         }
-
         .event-card {
             background: var(--bg-secondary);
             border: 1px solid var(--border-color);
@@ -205,188 +105,34 @@
             padding: 24px;
             margin-bottom: 20px;
             transition: all 0.2s ease;
-            position: relative;
         }
-
-        .event-card:hover {
-            border-color: var(--accent-blue);
-            box-shadow: 0 4px 12px rgba(9, 105, 218, 0.1);
-            transform: translateY(-2px);
-        }
-
+        .event-card:hover { border-color: var(--accent-blue); box-shadow: 0 4px 12px rgba(9, 105, 218, 0.1); transform: translateY(-2px); }
         .event-card.critical {
             border-left: 4px solid var(--accent-red);
             background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--danger-bg) 100%);
         }
-
         .event-card.high {
             border-left: 4px solid var(--accent-orange);
             background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--warning-bg) 100%);
         }
-
-        .event-card.medium {
-            border-left: 4px solid var(--accent-blue);
-        }
-
-        .event-header {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 16px;
-            margin-bottom: 16px;
-        }
-
-        .event-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--text-primary);
-            line-height: 1.4;
-        }
-
-        .event-meta {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
+        .event-card.medium { border-left: 4px solid var(--accent-blue); }
+        .event-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
+        .event-title { font-size: 18px; font-weight: 600; line-height: 1.4; }
+        .event-meta { display: flex; gap: 8px; flex-wrap: wrap; }
         .risk-badge {
             font-size: 12px;
             font-weight: 600;
             padding: 4px 10px;
             border-radius: 4px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
-
-        .risk-critical {
-            background: var(--accent-red);
-            color: white;
-        }
-
-        .risk-high {
-            background: var(--accent-orange);
-            color: white;
-        }
-
-        .risk-medium {
-            background: var(--accent-blue);
-            color: white;
-        }
-
-        .scope-badge {
-            font-size: 12px;
-            color: var(--text-muted);
-            background: var(--bg-tertiary);
-            padding: 4px 10px;
-            border-radius: 4px;
-            border: 1px solid var(--border-color);
-        }
-
-        .event-content {
-            color: var(--text-secondary);
-            font-size: 15px;
-            line-height: 1.7;
-        }
-
-        .event-content ul {
-            margin: 12px 0 12px 24px;
-        }
-
-        .event-content li {
-            margin-bottom: 8px;
-        }
-
-        .event-content strong {
-            color: var(--text-primary);
-            font-weight: 600;
-        }
-
-        .event-tags {
-            display: flex;
-            gap: 8px;
-            margin-top: 16px;
-            flex-wrap: wrap;
-        }
-
-        .event-tag {
-            font-size: 12px;
-            color: var(--text-muted);
-            background: var(--bg-tertiary);
-            padding: 4px 10px;
-            border-radius: 4px;
-            border: 1px solid var(--border-color);
-        }
-
-        .trend-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 24px 0;
-            font-size: 14px;
-        }
-
-        .trend-table th,
-        .trend-table td {
-            padding: 12px 16px;
-            text-align: left;
-            border: 1px solid var(--border-color);
-        }
-
-        .trend-table th {
-            background: var(--bg-secondary);
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .trend-table td {
-            color: var(--text-secondary);
-        }
-
-        .action-section {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 24px;
-            margin-top: 32px;
-        }
-
-        .action-group {
-            margin-bottom: 24px;
-        }
-
-        .action-group:last-child {
-            margin-bottom: 0;
-        }
-
-        .action-group-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .action-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .action-list li {
-            padding: 8px 0;
-            color: var(--text-secondary);
-            font-size: 15px;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-        }
-
-        .action-list li::before {
-            content: '☐';
-            color: var(--text-muted);
-            font-size: 16px;
-        }
-
+        .risk-critical { background: var(--accent-red); color: white; }
+        .risk-high { background: var(--accent-orange); color: white; }
+        .risk-medium { background: var(--accent-blue); color: white; }
+        .event-content { color: var(--text-secondary); font-size: 15px; line-height: 1.7; }
+        .event-content ul { margin: 12px 0 12px 24px; }
+        .event-content li { margin-bottom: 8px; }
+        .event-content strong { color: var(--text-primary); font-weight: 600; }
         footer {
             margin-top: 64px;
             padding-top: 32px;
@@ -395,41 +141,9 @@
             font-size: 13px;
             text-align: center;
         }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 24px;
-            margin-top: 16px;
-        }
-
-        .footer-links a {
-            color: var(--accent-blue);
-            text-decoration: none;
-        }
-
-        .footer-links a:hover {
-            text-decoration: underline;
-        }
-
-        @media (max-width: 640px) {
-            .header-content h1 {
-                font-size: 24px;
-            }
-
-            .event-header {
-                flex-direction: column;
-            }
-
-            .trend-table {
-                font-size: 13px;
-            }
-
-            .trend-table th,
-            .trend-table td {
-                padding: 8px 12px;
-            }
-        }
+        .footer-links { display: flex; justify-content: center; gap: 24px; margin-top: 16px; }
+        .footer-links a { color: var(--accent-blue); text-decoration: none; }
+        .footer-links a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
@@ -439,17 +153,13 @@
                 <a href="index.html" class="back-link">← 返回总览</a>
             </nav>
             <div class="header-content">
-                <h1>
-                    <span class="shield-icon">🛡️</span>
-                    AI 安全简报
-                </h1>
+                <h1><span>🛡️</span> AI 安全简报</h1>
                 <div class="header-meta">
                     <span class="post-date">📅 2026-03-31</span>
-                    <span class="post-stats">📊 8 条事件 · 3 严重 · 3 高危 · 2 中危</span>
+                    <span class="post-stats">📊 1 条事件</span>
                 </div>
             </div>
         </header>
-
         <main>
             <section class="focus-section">
                 <div class="focus-header">
@@ -457,117 +167,11 @@
                     <h2 class="focus-title">焦点关注</h2>
                 </div>
                 <p class="focus-summary">
-                    <strong>三重严重威胁：</strong>LiteLLM 供应链投毒事件爆发，PyPI 已隔离问题版本；Microsoft Copilot 零点击漏洞实现 AI 驱动数据窃取；OpenClaw CVSS 10.0 致命漏洞影响 46.9 万暴露实例。
+                    <strong>今日 AI 安全威胁概览：</strong>
+                    0 条严重风险 · 
+                    1 条高危风险 · 
+                    0 条中危风险
                 </p>
-                <div class="focus-source">
-                    <span class="source-tag">📰 PyPI</span>
-                    <span class="source-tag">📰 Microsoft</span>
-                    <span class="source-tag">📰 360 安全云</span>
-                    <span class="source-tag">📰 CrowdStrike</span>
-                </div>
-            </section>
-
-            <section class="content-section">
-                <div class="section-header">
-                    <div class="section-header-left">
-                        <span class="section-icon">🔴</span>
-                        <h2 class="section-title">严重风险 (Critical)</h2>
-                    </div>
-                    <span class="section-count">3 条</span>
-                </div>
-
-                <article class="event-card critical">
-                    <div class="event-header">
-                        <h3 class="event-title">LiteLLM 供应链投毒事件 — AI 开发圈重大安全危机</h3>
-                        <div class="event-meta">
-                            <span class="risk-badge risk-critical">Critical</span>
-                            <span class="scope-badge">🌍 AI 开发社区</span>
-                        </div>
-                    </div>
-                    <div class="event-content">
-                        <ul>
-                            <li><strong>时间:</strong> 2026 年 3 月 24 日爆发</li>
-                            <li><strong>风险等级:</strong> 🔴 严重 (CVSS 9.8+)</li>
-                            <li><strong>事件概述:</strong> 黑客组织 TeamPCP 通过入侵 Trivy 安全扫描工具，窃取 LiteLLM 发布密钥，向 PyPI 发布包含恶意代码的版本 (1.82.7/1.82.8)。恶意文件使用双重 Base64 编码混淆，可导致内存耗尽、进程无限复制。</li>
-                            <li><strong>影响范围:</strong> AI 开发社区广泛使用的 LLM 代理库，PyPI 已在 3 小时内隔离问题版本</li>
-                            <li><strong>攻击特征:</strong> 供应链攻击 + 代码混淆 + 社区舆论操控 (73 个账号 102 秒内刷 88 条噪音回复)</li>
-                            <li><strong>修复建议:</strong>
-                                <ul>
-                                    <li>立即检查项目中 LiteLLM 版本，降级至 1.82.6 或以下</li>
-                                    <li>轮换所有可能暴露的 API 密钥</li>
-                                    <li>审查 CI/CD 流水线中的 Trivy 集成</li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <div class="event-tags">
-                            <span class="event-tag">LiteLLM</span>
-                            <span class="event-tag">供应链攻击</span>
-                            <span class="event-tag">PyPI 投毒</span>
-                            <span class="event-tag">TeamPCP</span>
-                            <span class="event-tag">CVSS 9.8+</span>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="event-card critical">
-                    <div class="event-header">
-                        <h3 class="event-title">Microsoft Copilot 零点击数据外泄漏洞 (CVE-2026-26144)</h3>
-                        <div class="event-meta">
-                            <span class="risk-badge risk-critical">Critical</span>
-                            <span class="scope-badge">💼 企业用户</span>
-                        </div>
-                    </div>
-                    <div class="event-content">
-                        <ul>
-                            <li><strong>时间:</strong> 2026 年 3 月补丁日修复</li>
-                            <li><strong>风险等级:</strong> 🔴 严重</li>
-                            <li><strong>事件概述:</strong> Excel 输入净化漏洞与 Copilot Agent 结合，形成新型 AI 驱动数据窃取攻击。攻击者可通过恶意 Excel 文件操控 Copilot 代理，实现零点击数据外泄。</li>
-                            <li><strong>攻击范式转变:</strong> 从"攻击用户" → "操控 AI 代理执行攻击"</li>
-                            <li><strong>核心特征:</strong> 零点击、无需权限提升、AI 作为执行主体、合法流量完成数据外泄</li>
-                            <li><strong>影响:</strong> 可窃取 Excel 业务数据、凭证 Token、企业内部信息</li>
-                            <li><strong>修复建议:</strong> 立即应用 2026 年 3 月 Patch Tuesday 更新</li>
-                        </ul>
-                        <div class="event-tags">
-                            <span class="event-tag">CVE-2026-26144</span>
-                            <span class="event-tag">Microsoft Copilot</span>
-                            <span class="event-tag">零点击</span>
-                            <span class="event-tag">AI 代理攻击</span>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="event-card critical">
-                    <div class="event-header">
-                        <h3 class="event-title">OpenClaw 网关 WebSocket 无认证升级漏洞 (CVSS 10.0)</h3>
-                        <div class="event-meta">
-                            <span class="risk-badge risk-critical">Critical</span>
-                            <span class="scope-badge">🌐 46.9 万实例</span>
-                        </div>
-                    </div>
-                    <div class="event-content">
-                        <ul>
-                            <li><strong>时间:</strong> 2026 年 3 月 22 日披露</li>
-                            <li><strong>风险等级:</strong> 🔴 致命 (CVSS 10.0)</li>
-                            <li><strong>事件概述:</strong> 360 安全云团队发现 OpenClaw Gateway 核心零日漏洞，使用共享令牌时系统未正确验证客户端声明的权限范围，攻击者可声明高权限作用域完全控制网关中枢。</li>
-                            <li><strong>暴露面:</strong> 互联网可探测 OpenClaw 实例超 46.9 万个，85% 直接暴露公网</li>
-                            <li><strong>危害:</strong> 完全控制消息路由、Agent 调度、权限管理；可执行 Shell 命令、窃取敏感数据、植入后门</li>
-                            <li><strong>修复建议:</strong>
-                                <ul>
-                                    <li>立即检查网关暴露面，禁止公网直接访问</li>
-                                    <li>升级至最新安全版本</li>
-                                    <li>启用严格的作用域验证机制</li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <div class="event-tags">
-                            <span class="event-tag">OpenClaw</span>
-                            <span class="event-tag">CVSS 10.0</span>
-                            <span class="event-tag">WebSocket</span>
-                            <span class="event-tag">360 安全云</span>
-                            <span class="event-tag">46.9 万暴露</span>
-                        </div>
-                    </div>
-                </article>
             </section>
 
             <section class="content-section">
@@ -576,263 +180,28 @@
                         <span class="section-icon">🟠</span>
                         <h2 class="section-title">高危风险 (High)</h2>
                     </div>
-                    <span class="section-count">3 条</span>
+                    <span class="section-count">1 条</span>
                 </div>
 
                 <article class="event-card high">
                     <div class="event-header">
-                        <h3 class="event-title">Citrix NetScaler 严重漏洞 (CVE-2026-3055) 遭活跃探测</h3>
+                        <h3 class="event-title">AI Security Threat Report 2026</h3>
                         <div class="event-meta">
                             <span class="risk-badge risk-high">High</span>
-                            <span class="scope-badge">🏢 企业网络</span>
                         </div>
                     </div>
                     <div class="event-content">
-                        <ul>
-                            <li><strong>时间:</strong> 2026 年 3 月 29-30 日</li>
-                            <li><strong>风险等级:</strong> 🟠 高危 (CVSS 9.3)</li>
-                            <li><strong>事件概述:</strong> Citrix NetScaler ADC/Gateway 中 SAML IDP 内存越读漏洞正遭攻击者活跃探测，可能导致敏感数据泄露。</li>
-                            <li><strong>历史参考:</strong> 2023 年 CVE-2023-4966 "CitrixBleed"同类漏洞从披露到大规模利用仅数周</li>
-                            <li><strong>修复建议:</strong>
-                                <ul>
-                                    <li>立即检查配置：`show run | grep samlIdPProfile`</li>
-                                    <li>应用官方补丁 (CTX696300)</li>
-                                    <li>部署 WAF 提供虚拟补丁防护</li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <div class="event-tags">
-                            <span class="event-tag">CVE-2026-3055</span>
-                            <span class="event-tag">Citrix NetScaler</span>
-                            <span class="event-tag">SAML</span>
-                            <span class="event-tag">内存越读</span>
-                        </div>
+                        <p>Latest AI security threats and vulnerability trends</p>
+                        <p style="margin-top: 12px;"><strong>来源:</strong> <a href="https://example.com" target="_blank">Security Research</a></p>
                     </div>
                 </article>
 
-                <article class="event-card high">
-                    <div class="event-header">
-                        <h3 class="event-title">Xygeni Action 标签投毒漏洞 (CVE-2026-31976)</h3>
-                        <div class="event-meta">
-                            <span class="risk-badge risk-high">High</span>
-                            <span class="scope-badge">🔗 CI/CD</span>
-                        </div>
-                    </div>
-                    <div class="event-content">
-                        <ul>
-                            <li><strong>时间:</strong> 2026 年 3 月 3 日披露</li>
-                            <li><strong>风险等级:</strong> 🟠 高危 (CVSS 9.4)</li>
-                            <li><strong>事件概述:</strong> GitHub 可变标签机制设计缺陷被利用，攻击者盗用 Xygeni 官方 GitHub App 私钥，将 v5 标签从安全版本强制指向恶意提交。</li>
-                            <li><strong>影响范围:</strong> 1.2 万家企业、3.5 万个 GitHub 仓库的 CI 工作流</li>
-                            <li><strong>攻击链:</strong> 标签篡改 → 代码执行 → 凭据窃取 → 云资源沦陷</li>
-                            <li><strong>修复建议:</strong>
-                                <ul>
-                                    <li>检查所有引用 xygeni/xygeni-action@v5 的工作流</li>
-                                    <li>使用固定提交哈希替代可变标签</li>
-                                    <li>轮换 GITHUB_TOKEN 及云平台凭据</li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <div class="event-tags">
-                            <span class="event-tag">CVE-2026-31976</span>
-                            <span class="event-tag">Xygeni</span>
-                            <span class="event-tag">标签投毒</span>
-                            <span class="event-tag">GitHub Actions</span>
-                            <span class="event-tag">1.2 万企业</span>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="event-card high">
-                    <div class="event-header">
-                        <h3 class="event-title">AI 深度伪造诈骗产业链爆发</h3>
-                        <div class="event-meta">
-                            <span class="risk-badge risk-high">High</span>
-                            <span class="scope-badge">🎭 社会工程</span>
-                        </div>
-                    </div>
-                    <div class="event-content">
-                        <ul>
-                            <li><strong>时间:</strong> 2026 年 3 月持续发酵</li>
-                            <li><strong>风险等级:</strong> 🟠 高危</li>
-                            <li><strong>事件概述:</strong> 全国政协委员霍启刚公开控诉 AI 技术大规模盗用其形象和声音。深度伪造技术已渗透企业数字化办公，攻击者可利用窃取的会议录音和 CRM 语音数据发起实时深度伪造通话。</li>
-                            <li><strong>攻击特征:</strong>
-                                <ul>
-                                    <li>3 秒素材即可克隆声音</li>
-                                    <li>实时渲染 + 情绪匹配，连呼吸节奏都可模拟</li>
-                                    <li>与地理位置伪装结合营造"在现场"假象</li>
-                                </ul>
-                            </li>
-                            <li><strong>影响:</strong> 交易审批、危机应对等关键时刻的语音诈骗</li>
-                            <li><strong>防御建议:</strong>
-                                <ul>
-                                    <li>建立多因素语音验证机制</li>
-                                    <li>关键操作需二次确认 (非语音渠道)</li>
-                                    <li>部署深度伪造检测工具</li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <div class="event-tags">
-                            <span class="event-tag">深度伪造</span>
-                            <span class="event-tag">语音克隆</span>
-                            <span class="event-tag">社会工程</span>
-                            <span class="event-tag">3 秒克隆</span>
-                        </div>
-                    </div>
-                </article>
             </section>
 
-            <section class="content-section">
-                <div class="section-header">
-                    <div class="section-header-left">
-                        <span class="section-icon">🟡</span>
-                        <h2 class="section-title">中危风险 (Medium)</h2>
-                    </div>
-                    <span class="section-count">2 条</span>
-                </div>
-
-                <article class="event-card medium">
-                    <div class="event-header">
-                        <h3 class="event-title">Ollama 默认配置安全隐患遭国家通报</h3>
-                        <div class="event-meta">
-                            <span class="risk-badge risk-medium">Medium</span>
-                            <span class="scope-badge">🖥️ 本地部署</span>
-                        </div>
-                    </div>
-                    <div class="event-content">
-                        <ul>
-                            <li><strong>时间:</strong> 2026 年 3 月下旬</li>
-                            <li><strong>风险等级:</strong> 🟡 中危</li>
-                            <li><strong>事件概述:</strong> 国家网络安全通报中心发布通报，Ollama 默认配置存在未授权访问与模型窃取隐患。本地部署默认开放 11434 端口且无鉴权机制。</li>
-                            <li><strong>风险点:</strong>
-                                <ul>
-                                    <li>未授权访问模型服务</li>
-                                    <li>通过/api/show 接口提取模型数据</li>
-                                    <li>算力盗取与服务中断</li>
-                                </ul>
-                            </li>
-                            <li><strong>影响:</strong> DeepSeek 等大模型私有化部署用户</li>
-                            <li><strong>修复建议:</strong>
-                                <ul>
-                                    <li>限制 11434 端口仅本地访问</li>
-                                    <li>配置防火墙阻断公网出入站流量</li>
-                                    <li>启用 API 密钥管理与 IP 白名单</li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <div class="event-tags">
-                            <span class="event-tag">Ollama</span>
-                            <span class="event-tag">默认配置</span>
-                            <span class="event-tag">11434 端口</span>
-                            <span class="event-tag">国家通报</span>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="event-card medium">
-                    <div class="event-header">
-                        <h3 class="event-title">LangChain 不安全反序列化漏洞 (CVE-2025-68664)</h3>
-                        <div class="event-meta">
-                            <span class="risk-badge risk-medium">Medium</span>
-                            <span class="scope-badge">📦 AI 框架</span>
-                        </div>
-                    </div>
-                    <div class="event-content">
-                        <ul>
-                            <li><strong>时间:</strong> 2026 年 3 月</li>
-                            <li><strong>风险等级:</strong> 🟡 中危</li>
-                            <li><strong>事件概述:</strong> Cyera 研究员披露三个 LangChain/LangGraph 漏洞，影响全球累计下载量超 8400 万次的 AI 框架。</li>
-                            <li><strong>风险:</strong> API 密钥泄露、不安全反序列化</li>
-                            <li><strong>修复建议:</strong>
-                                <ul>
-                                    <li>立即升级依赖至安全版本</li>
-                                    <li>轮换所有可能接触过的 API 密钥</li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <div class="event-tags">
-                            <span class="event-tag">CVE-2025-68664</span>
-                            <span class="event-tag">LangChain</span>
-                            <span class="event-tag">反序列化</span>
-                            <span class="event-tag">8400 万次下载</span>
-                        </div>
-                    </div>
-                </article>
-            </section>
-
-            <section class="content-section">
-                <div class="section-header">
-                    <div class="section-header-left">
-                        <span class="section-icon">📊</span>
-                        <h2 class="section-title">趋势洞察</h2>
-                    </div>
-                </div>
-
-                <h3 style="font-size: 16px; margin: 20px 0 12px; color: var(--text-primary);">AI 安全威胁演变趋势</h3>
-                <table class="trend-table">
-                    <thead>
-                        <tr>
-                            <th>趋势</th>
-                            <th>描述</th>
-                            <th>关键指标</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>攻击范式转变</td>
-                            <td>从直接攻击系统 → 操控 AI 代理执行攻击</td>
-                            <td>Copilot 零点击漏洞</td>
-                        </tr>
-                        <tr>
-                            <td>供应链攻击升级</td>
-                            <td>CI/CD+ 云深度渗透，标签投毒成新载体</td>
-                            <td>Xygeni 影响 3.5 万仓库</td>
-                        </tr>
-                        <tr>
-                            <td>深度伪造平民化</td>
-                            <td>技术门槛降至冰点，3 秒素材即可克隆</td>
-                            <td>3 秒声音克隆</td>
-                        </tr>
-                        <tr>
-                            <td>数据投毒产业化</td>
-                            <td>GEO 优化灰色产业链形成</td>
-                            <td>0.01% 虚假文本 → 有害输出 +11.2%</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h3 style="font-size: 16px; margin: 20px 0 12px; color: var(--text-primary);">防御建议优先级</h3>
-                <ol style="margin-left: 20px; color: var(--text-secondary); line-height: 1.8;">
-                    <li><strong>紧急：</strong>检查 LiteLLM、OpenClaw、Microsoft 相关漏洞</li>
-                    <li><strong>高优：</strong>审计 CI/CD 流水线依赖，使用固定哈希替代标签</li>
-                    <li><strong>持续：</strong>建立 AI 生成内容验证机制，部署深度伪造检测</li>
-                </ol>
-            </section>
-
-            <section class="action-section">
-                <h2 style="font-size: 18px; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
-                    📌 行动清单
-                </h2>
-                <ul class="action-list">
-                    <li>检查项目中 LiteLLM 版本，必要时降级</li>
-                    <li>应用 Microsoft 2026 年 3 月安全更新</li>
-                    <li>审计 OpenClaw 网关暴露面，禁止公网访问</li>
-                    <li>检查 Citrix NetScaler 配置并应用补丁</li>
-                    <li>审查 GitHub 工作流中的可变标签引用</li>
-                    <li>检查 Ollama 部署配置，限制端口访问</li>
-                    <li>轮换可能暴露的 API 密钥和凭证</li>
-                </ul>
-            </section>
         </main>
-
         <footer>
-            <p>
-                <strong>来源:</strong> 公开安全情报、厂商公告、安全研究机构
-            </p>
-            <p>
-                <strong>编制:</strong> AI 安全简报自动化系统 &nbsp;|&nbsp; 
-                <strong>分发:</strong> 内部安全团队
-            </p>
+            <p><strong>来源:</strong> 公开安全情报、厂商公告、安全研究机构</p>
+            <p><strong>编制:</strong> AI 安全简报自动化系统</p>
             <div class="footer-links">
                 <a href="index.html">← 返回总览</a>
                 <a href="https://github.com/caoyu/ai-security-briefing" target="_blank">GitHub 仓库</a>
