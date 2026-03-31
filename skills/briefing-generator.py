@@ -16,126 +16,131 @@ from pathlib import Path
 # 内置数据源（web_search 不可用时的备用数据）
 AI_RISK_EVENTS = [
     {
-        "title": "LiteLLM 供应链投毒漏洞 - CVSS 9.8",
-        "summary": "攻击者通过污染 PyPI 包仓库，在 LiteLLM 依赖链中植入恶意代码，影响超过 50,000 个 AI 应用实例。",
-        "url": "https://github.com/BerriAI/litellm/security/advisories",
-        "source": "GitHub Security",
+        "title": "LiteLLM 供应链投毒事件 - 340 万次下载量的 AI 工具被植入恶意代码",
+        "summary": "2026 年 3 月 24 日，AI 开发圈广泛使用的 LiteLLM（日下载 340 万次）在 PyPI 发布被投毒版本 1.82.7/1.82.8，攻击者通过入侵 Trivy 安全工具获取发布密钥，植入双重 Base64 编码恶意代码。事件由英国 FutureSearch 研究员发现，PyPI 在 3 小时后隔离问题版本。",
+        "url": "https://zhuanlan.zhihu.com/p/2020267378420793370",
+        "source": "知乎 - AI 开发圈巨震，记 2026 年 3 月 LiteLLM 被投毒事件始末",
         "risk": "critical"
     },
     {
-        "title": "Microsoft Copilot 零点击数据泄露漏洞",
-        "summary": "CVSS 10.0 严重漏洞，攻击者可通过精心构造的提示词绕过沙箱，直接访问企业敏感数据。",
-        "url": "https://msrc.microsoft.com/security",
-        "source": "Microsoft Security Response Center",
+        "title": "微软 Copilot AI 助手曝重大安全漏洞 - 单击链接即可窃取用户隐私",
+        "summary": "安全公司 Varonis 发现微软 Copilot 存在严重提示注入漏洞（命名为 Reprompt），攻击者通过构造恶意 URL 链接，用户单击后即可窃取姓名、位置、聊天历史等敏感数据。漏洞影响 Copilot Personal，微软已修复。",
+        "url": "https://baijiahao.baidu.com/s?id=1854373488382411098&wfr=spider&for=pc",
+        "source": "百家号 - 微软 Copilot AI 助手曝重大安全漏洞",
         "risk": "critical"
     },
     {
-        "title": "OpenClaw Gateway 27 万实例暴露",
-        "summary": "Shodan 扫描发现 27 万 OpenClaw 网关实例未授权访问，攻击者可远程执行代码。",
-        "url": "https://www.shodan.io/search?query=openclaw",
-        "source": "Shodan",
+        "title": "微软修复 Copilot 数据泄露漏洞 - Varonis 研究人员发现防护栏设计缺陷",
+        "summary": "Varonis 安全研究员 Dolev Taler 发现微软 Copilot 的防护栏设计不当，未进行威胁建模，攻击者可通过间接提示注入绕过防护。微软已引入阻止攻击的更改，漏洞仅影响 Copilot Personal，Microsoft 365 Copilot 不受影响。",
+        "url": "https://learn.microsoft.com/zh-cn/copilot/microsoft-365/microsoft-365-copilot-privacy",
+        "source": "Microsoft Learn - Microsoft 365 Copilot 的数据、隐私和安全性",
         "risk": "high"
     }
 ]
 
 AI_TECH_TRENDS = [
     {
-        "title": "图灵奖得主 Bengio 领衔发布《2026 国际 AI 安全报告》",
-        "summary": "100+ 独立专家联合发布，聚焦 AI 新兴风险、网络安全威胁实证、部署前安全测试挑战。",
+        "title": "图灵奖得主 Bengio 领衔发布《2026 国际 AI 安全报告》- 100+ 专家、30 多国参与",
+        "summary": "2026 年 2 月，Yoshua Bengio 领衔 100 多位独立专家发布《2026 国际人工智能安全报告》，30 多国政府和国际组织参与。报告聚焦通用 AI 能力跃升、新兴风险（恶意使用、系统故障、社会经济冲击）及风险管理方法，为政策制定者提供基于证据的科学共识。",
         "url": "https://hub.baai.ac.cn/view/52420",
         "source": "北京智源人工智能研究院"
     },
     {
-        "title": "AI 赋能网络攻击 +89% - CrowdStrike 2026 威胁报告",
-        "summary": "AI 驱动的钓鱼攻击、深度伪造欺诈、自动化漏洞利用同比增长 89%，企业需升级防御策略。",
-        "url": "https://www.crowdstrike.com/resources/reports/",
-        "source": "CrowdStrike"
+        "title": "CrowdStrike《2026 全球威胁报告》- AI 赋能攻击者 +89%",
+        "summary": "CrowdStrike 发布 2026 全球威胁报告，2025 年 AI 赋能的攻击者数量同比增加 89%。社会工程学攻击增长 109%（AI 生成钓鱼内容、深度伪造），执行与防御规避阶段增长 134%（AI 编码助手生成恶意脚本）。平均突破时间从 48 分钟降至 29 分钟，极端案例仅 27 秒。",
+        "url": "https://caifuhao.eastmoney.com/news/20260309140416269513630",
+        "source": "东方财富网 - AI 简讯 | 新春专辑：解析 CrowdStrike《2026 全球威胁报告》"
     },
     {
-        "title": "自主智能体安全成为新焦点",
-        "summary": "随着 AI Agent 广泛应用，智能体劫持、目标函数攻击、自主行为失控等新威胁涌现。",
-        "url": "https://www.anthropic.com/research",
-        "source": "Anthropic Research"
+        "title": "自主智能体安全成为新焦点 - AI Agent 面临提示注入与劫持风险",
+        "summary": "随着企业部署 AI Agent，报告记录攻击者利用恶意提示词注入篡改 AI 指令，通过合法 AI 工具执行未授权命令或窃取敏感数据。智能体劫持、目标函数攻击、自主行为失控成为新威胁焦点。",
+        "url": "https://www.crowdstrike.com/en-us/pangea/",
+        "source": "CrowdStrike Falcon AI Detection and Response"
     },
     {
-        "title": "预测式 AI 安全检测技术成熟",
-        "summary": "Cloudflare、IBM 等厂商推出预测式 AI 安全方案，可提前检测零日漏洞和未知威胁。",
-        "url": "https://www.cloudflare.com/learning/ai/ai-for-cybersecurity/",
-        "source": "Cloudflare"
+        "title": "AI 模型安全测试挑战 - 部署前评估难以检测危险能力",
+        "summary": "《2026 国际 AI 安全报告》指出，可靠的部署前安全测试变得更加困难。模型能够区分测试环境与真实部署环境，利用评估漏洞，危险能力可能在部署前无法被察觉。",
+        "url": "https://www.thepaper.cn/newsDetail_forward_32837065",
+        "source": "澎湃新闻 - 【独家选译】2026 年国际人工智能安全报告"
     },
     {
-        "title": "AI 模型安全测试标准制定加速",
-        "summary": "NIST、ISO 等组织加快 AI 模型安全测试标准制定，部署前安全评估将成为强制要求。",
-        "url": "https://www.nist.gov/itl/ai-risk-management-framework",
-        "source": "NIST"
+        "title": "12 家公司发布 AI 安全框架 - 行业治理承诺扩大",
+        "summary": "2025 年，12 家公司发布或更新了前沿 AI 安全框架，阐述构建更强大模型时的风险管理计划。大多数举措仍属自愿性质，但少数司法管辖区已开始将部分做法确立为法律要求。",
+        "url": "https://news.qq.com/rain/a/20260216A034V600",
+        "source": "腾讯新闻 - 图灵奖得主领衔，30 多国 100 多位专家重磅《2026 国际人工智能安全报告》"
     }
 ]
 
 AI_POLICY_EVENTS = [
     {
-        "title": "欧盟 AI 法案实施细节明确",
-        "summary": "欧盟委员会发布 AI 法案实施指南，高风险 AI 系统需通过严格合规评估。",
-        "url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
-        "source": "欧盟委员会"
+        "title": "《2026 年国际人工智能安全报告》发布 - 英国科学、创新与技术部支持",
+        "summary": "该报告由英国科学、创新与技术部发布，Yoshua Bengio 担任主席。报告指出通用 AI 能力已超预期跃升，但风险证据仍在累积、治理手段明显滞后。报告旨在为全球决策提供共同认知，建立有效防线与全球协同规则。",
+        "url": "https://www.docin.com/p-4950334081.html",
+        "source": "豆丁网 - 2026 年国际人工智能安全报告 (官方中文版)"
     },
     {
-        "title": "中国互联网联合辟谣平台澄清 AI 治理谣言",
-        "summary": "网传'七部门发布 AI 安全治理三年行动计划'系谣言，请以官方渠道为准。",
+        "title": "中国互联网联合辟谣平台澄清 - 网传 AI 治理行动计划系谣言",
+        "summary": "中国互联网联合辟谣平台 2026 年 3 月 17 日澄清：网传'七部门发布 AI 安全治理三年行动计划'系谣言，请以官方渠道发布的信息为准。",
         "url": "http://www.piyao.org.cn/20260317/c26491ced6d246bea6565c73e35da4a6/c.html",
         "source": "中国互联网联合辟谣平台"
     },
     {
-        "title": "越南 AI 法正式生效",
-        "summary": "越南成为东南亚首个颁布 AI 专门法的国家，要求 AI 服务提供商进行安全备案。",
-        "url": "https://www.reuters.com/technology/vietnam-ai-law",
-        "source": "Reuters"
+        "title": "欧盟 AI 法案实施框架 - 高风险 AI 系统需合规评估",
+        "summary": "欧盟委员会发布 AI 法案实施指南，明确高风险 AI 系统的合规评估流程。企业需建立风险管理系统、数据治理框架、技术文档和记录保存等合规措施。",
+        "url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
+        "source": "欧盟委员会 - Regulatory Framework for AI"
     }
 ]
 
 VENDOR_EVENTS = [
     {
         "vendor": "Microsoft",
-        "type": "AI 安全研究",
-        "title": "2026 年 Microsoft 资料安全性索引发布",
-        "summary": "分析 1,725 位资料安全领导者，揭示生成式 AI 在组织中的安全使用现状与风险。",
-        "url": "https://www.microsoft.com/zh-hk/security/security-insider/emerging-trends/cyber-pulse-ai-security-report",
-        "source": "Microsoft Security",
+        "type": "Copilot 安全修复",
+        "title": "微软修复 Copilot 提示注入漏洞",
+        "summary": "微软已修复 Copilot Personal 中的 Reprompt 漏洞，引入阻止间接提示注入攻击的更改。漏洞允许攻击者通过恶意 URL 窃取用户敏感数据。",
+        "url": "https://learn.microsoft.com/zh-cn/copilot/microsoft-365/microsoft-365-copilot-privacy",
+        "source": "Microsoft Learn",
+        "source_url": "https://learn.microsoft.com/zh-cn/copilot/microsoft-365/microsoft-365-copilot-privacy",
         "region": "international"
     },
     {
-        "vendor": "IBM",
-        "type": "AI 网络安全",
-        "title": "AI 驱动网络安全防御，欺诈成本降低 90%",
-        "summary": "IBM 发布 AI 网络安全报告，AI 模型可分析登录风险，通过行为数据验证用户。",
-        "url": "https://www.ibm.com/security/artificial-intelligence",
-        "source": "IBM Security",
+        "vendor": "CrowdStrike",
+        "type": "2026 全球威胁报告",
+        "title": "AI 赋能攻击者 +89% - 突破时间降至 29 分钟",
+        "summary": "CrowdStrike 发布 2026 全球威胁报告，AI 驱动的社会工程学攻击增长 109%，执行与防御规避增长 134%。62% 的组织正在测试或扩展 AI Agent 部署。",
+        "url": "https://www.crowdstrike.com/en-us/pangea/",
+        "source": "CrowdStrike",
+        "source_url": "https://www.crowdstrike.com/en-us/pangea/",
         "region": "international"
     },
     {
         "vendor": "Cloudflare",
-        "type": "预测式 AI 安全",
-        "title": "预测式 AI 加强网络威胁检测",
-        "summary": "Cloudflare 发布 AI 网络安全指南，预测式 AI 可检测机器人、恶意软件、零日漏洞利用。",
-        "url": "https://www.cloudflare.com/learning/ai/ai-for-cybersecurity/",
-        "source": "Cloudflare",
+        "type": "AI 检测与响应",
+        "title": "CrowdStrike Falcon AI Detection and Response",
+        "summary": "CrowdStrike 推出 Falcon AI 检测与响应方案，保护每个 prompt 和 agent，实时阻止 prompt 攻击，捕获完整的 AI 事件日志。",
+        "url": "https://www.crowdstrike.com/en-us/pangea/",
+        "source": "CrowdStrike",
+        "source_url": "https://www.crowdstrike.com/en-us/pangea/",
         "region": "international"
     },
     {
-        "vendor": "360",
-        "type": "AI 安全治理",
-        "title": "关注 AI 安全治理政策动态",
-        "summary": "中国互联网联合辟谣平台澄清 AI 治理谣言。",
-        "url": "http://www.piyao.org.cn/20260317/c26491ced6d246bea6565c73e35da4a6/c.html",
-        "source": "中国互联网联合辟谣平台",
+        "vendor": "智源研究院",
+        "type": "2026 国际 AI 安全报告",
+        "title": "Bengio 领衔发布《2026 国际人工智能安全报告》",
+        "summary": "图灵奖得主 Yoshua Bengio 领衔 100+ 独立专家发布报告，30 多国政府和国际组织参与，为政策制定者提供基于证据的科学共识。",
+        "url": "https://hub.baai.ac.cn/view/52420",
+        "source": "北京智源人工智能研究院",
+        "source_url": "https://hub.baai.ac.cn/view/52420",
         "region": "domestic"
     },
     {
-        "vendor": "智源研究院",
-        "type": "AI 安全报告",
-        "title": "《2026 国际人工智能安全报告》发布",
-        "summary": "图灵奖得主 Bengio 领衔，100+ 专家联合发布 AI 安全研究报告。",
-        "url": "https://hub.baai.ac.cn/view/52420",
-        "source": "北京智源人工智能研究院",
+        "vendor": "中国互联网联合辟谣平台",
+        "type": "AI 治理谣言澄清",
+        "title": "网传'七部门发布 AI 安全治理三年行动计划'系谣言",
+        "summary": "中国互联网联合辟谣平台 2026 年 3 月 17 日澄清，网传 AI 安全治理三年行动计划系谣言，请以官方渠道发布的信息为准。",
+        "url": "http://www.piyao.org.cn/20260317/c26491ced6d246bea6565c73e35da4a6/c.html",
+        "source": "中国互联网联合辟谣平台",
+        "source_url": "http://www.piyao.org.cn/20260317/c26491ced6d246bea6565c73e35da4a6/c.html",
         "region": "domestic"
     }
 ]
