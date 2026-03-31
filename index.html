@@ -43,7 +43,6 @@
             padding: 0 24px;
         }
 
-        /* Header */
         header {
             padding: 48px 0 32px;
             border-bottom: 1px solid var(--border-color);
@@ -99,12 +98,10 @@
             color: var(--accent-green);
         }
 
-        /* Main Content */
         main {
             padding-bottom: 64px;
         }
 
-        /* Briefing List */
         .briefing-list {
             display: flex;
             flex-direction: column;
@@ -151,132 +148,89 @@
 
         .briefing-date {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 13px;
+            font-size: 14px;
             color: var(--text-muted);
             background: var(--bg-tertiary);
             padding: 4px 10px;
             border-radius: 4px;
             border: 1px solid var(--border-color);
-        }
-
-        .new-badge {
-            background: rgba(9, 105, 218, 0.1);
-            color: var(--accent-blue);
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
         .briefing-title {
             font-size: 18px;
             font-weight: 600;
-            margin-bottom: 12px;
-            line-height: 1.4;
-        }
-
-        .briefing-title a {
             color: var(--text-primary);
-            text-decoration: none;
-        }
-
-        .briefing-title a:hover {
-            color: var(--accent-blue);
+            flex: 1;
         }
 
         .briefing-summary {
             color: var(--text-secondary);
-            font-size: 14px;
+            font-size: 15px;
+            line-height: 1.7;
             margin-bottom: 16px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
         }
 
-        .briefing-meta {
+        .briefing-stats {
             display: flex;
-            align-items: center;
             gap: 16px;
             flex-wrap: wrap;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .stat-critical {
+            color: var(--accent-red);
+            font-weight: 600;
+        }
+
+        .stat-high {
+            color: var(--accent-orange);
+            font-weight: 600;
+        }
+
+        .stat-medium {
+            color: var(--accent-blue);
+            font-weight: 600;
         }
 
         .read-more {
-            color: var(--accent-blue);
-            font-size: 14px;
-            font-weight: 500;
-            text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 6px;
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-tertiary);
+            transition: all 0.2s ease;
+            margin-top: 16px;
         }
 
         .read-more:hover {
-            text-decoration: underline;
-        }
-
-        .article-count {
-            color: var(--text-muted);
-            font-size: 13px;
-        }
-
-        /* Empty State */
-        .empty-state {
-            text-align: center;
-            padding: 80px 24px;
-            color: var(--text-muted);
-        }
-
-        .empty-state-icon {
-            font-size: 64px;
-            margin-bottom: 24px;
-            opacity: 0.5;
-        }
-
-        .empty-state p {
-            margin-bottom: 16px;
-            font-size: 16px;
-        }
-
-        /* Footer */
-        footer {
-            border-top: 1px solid var(--border-color);
-            padding: 32px 0;
-            text-align: center;
-        }
-
-        .footer-content {
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-
-        .footer-content a {
-            color: var(--accent-blue);
+            border-color: var(--accent-blue);
+            background: var(--bg-secondary);
             text-decoration: none;
         }
 
-        .footer-content a:hover {
-            text-decoration: underline;
-        }
-
-        .publish-time {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--bg-tertiary);
-            border: 1px solid var(--border-color);
-            padding: 8px 16px;
-            border-radius: 6px;
+        footer {
+            margin-top: 64px;
+            padding-top: 32px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
             font-size: 13px;
-            color: var(--text-secondary);
-            font-family: 'JetBrains Mono', monospace;
-            margin-bottom: 8px;
-        }
-
-        .publish-time span:first-child {
-            font-size: 16px;
+            text-align: center;
         }
 
         .footer-links {
@@ -287,29 +241,26 @@
         }
 
         .footer-links a {
-            color: var(--text-secondary);
-            font-size: 13px;
+            color: var(--accent-blue);
+            text-decoration: none;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 640px) {
             .header-content {
                 flex-direction: column;
-                gap: 16px;
             }
 
             .header-left h1 {
                 font-size: 24px;
             }
 
-            .briefing-item {
-                padding: 20px;
-            }
-
-            .briefing-meta {
+            .briefing-stats {
                 flex-direction: column;
-                align-items: flex-start;
-                gap: 12px;
+                gap: 8px;
             }
         }
     </style>
@@ -323,12 +274,11 @@
                         <span class="shield-icon">🛡️</span>
                         AI Security Briefing
                     </h1>
-                    <div class="subtitle">每日 AI 安全动态 · 全球技术视野</div>
+                    <p class="subtitle">AI 安全简报 · 每日更新</p>
                 </div>
                 <div class="header-right">
-                    <span class="badge active">● Live</span>
-                    <span class="badge">Daily Updates</span>
-                    <span class="badge">Open Source</span>
+                    <span class="badge active">● 更新中</span>
+                    <span class="badge">📊 工作日早 9 点</span>
                 </div>
             </div>
         </header>
@@ -337,72 +287,97 @@
             <div class="briefing-list">
                 <article class="briefing-item new">
                     <div class="briefing-header">
-                        <span class="briefing-date">2026-03-31</span>
-                        <span class="new-badge">New</span>
+                        <span class="briefing-date">📅 2026-03-31</span>
+                        <h2 class="briefing-title">LiteLLM 供应链投毒 + Copilot 零点击漏洞 + OpenClaw CVSS 10.0</h2>
                     </div>
-                    <h2 class="briefing-title">
-                        <a href="ai-security-20260331.html">AI 安全简报 2026-03-31</a>
-                    </h2>
-                    <div class="briefing-summary">
-                        Microsoft 资料安全索引发布；IBM AI 网络安全防御；Cloudflare 预测式 AI 威胁检测；智源研究院发布国际 AI 安全报告
+                    <p class="briefing-summary">
+                        三重严重威胁：LiteLLM 供应链投毒事件爆发，PyPI 已隔离问题版本；Microsoft Copilot 零点击漏洞实现 AI 驱动数据窃取；OpenClaw CVSS 10.0 致命漏洞影响 46.9 万暴露实例。AI 漏洞武器化时间缩短至小时级。
+                    </p>
+                    <div class="briefing-stats">
+                        <span class="stat-item stat-critical">🔴 严重 3</span>
+                        <span class="stat-item stat-high">🟠 高危 3</span>
+                        <span class="stat-item stat-medium">🟡 中危 2</span>
+                        <span class="stat-item">共 8 条事件</span>
                     </div>
-                    <div class="briefing-meta">
-                        <a href="ai-security-20260331.html" class="read-more">
-                            阅读全文 <span>→</span>
-                        </a>
-                        <span class="article-count">5 篇文章</span>
+                    <a href="ai-security-20260331.html" class="read-more">阅读全文 →</a>
+                </article>
+
+                <article class="briefing-item">
+                    <div class="briefing-header">
+                        <span class="briefing-date">📅 2026-03-30</span>
+                        <h2 class="briefing-title">AI 赋能攻击 +89% · 自主智能体威胁 · 国际 AI 安全报告</h2>
+                    </div>
+                    <p class="briefing-summary">
+                        CrowdStrike 报告显示 AI 赋能攻击同比增长 89%；13% 企业遭遇 AI 相关安全事件，其中 97% 缺乏适当访问控制；电子犯罪最快突破时间缩短至 27 秒。Yoshua Bengio 领衔发布《2026 国际 AI 安全报告》。
+                    </p>
+                    <div class="briefing-stats">
+                        <span class="stat-item stat-high">🔴 高 3</span>
+                        <span class="stat-item stat-medium">🟠 中高 2</span>
+                        <span class="stat-item">🟡 中 3</span>
+                        <span class="stat-item">共 8 条事件</span>
                     </div>
                 </article>
 
                 <article class="briefing-item">
                     <div class="briefing-header">
-                        <span class="briefing-date">2026-03-26</span>
+                        <span class="briefing-date">📅 2026-03-27</span>
+                        <h2 class="briefing-title">Langflow RCE · 沙箱逃逸 · OpenClaw 27 万实例暴露</h2>
                     </div>
-                    <h2 class="briefing-title">
-                        <a href="ai-security-20260326.html">AI 安全简报 2026-03-26</a>
-                    </h2>
-                    <div class="briefing-summary">
-                        最新 AI 安全动态追踪 · 漏洞披露 · 威胁情报 · 政策法规
-                    </div>
-                    <div class="briefing-meta">
-                        <a href="ai-security-20260326.html" class="read-more">
-                            阅读全文 <span>→</span>
-                        </a>
-                        <span class="article-count">查看详情</span>
+                    <p class="briefing-summary">
+                        Langflow RCE 漏洞 20 小时内被武器化利用；enclave-vm 沙箱逃逸漏洞；OpenClaw 27 万实例暴露公网。国家级 APT 组织正积极利用暴露的 AI 基础设施，传统欺诈检测手段对 AI 驱动攻击濒临失效。
+                    </p>
+                    <div class="briefing-stats">
+                        <span class="stat-item stat-critical">🔴 极高 3</span>
+                        <span class="stat-item stat-high">🟠 高 3</span>
+                        <span class="stat-item">🟡 中 3</span>
+                        <span class="stat-item">共 9 条事件</span>
                     </div>
                 </article>
 
                 <article class="briefing-item">
                     <div class="briefing-header">
-                        <span class="briefing-date">2026-03-10</span>
+                        <span class="briefing-date">📅 2026-03-26</span>
+                        <h2 class="briefing-title">OpenClaw 23 万裸奔 · 墨西哥 1.95 亿记录泄露 · APT28 AI 零日</h2>
                     </div>
-                    <h2 class="briefing-title">
-                        <a href="ai-security-20260310.html">AI 安全简报 2026-03-10</a>
-                    </h2>
-                    <div class="briefing-summary">
-                        政府工作报告首提"打造智能经济新形态"；AI 可能传播 15 年老漏洞；德克萨斯州 30 万份车祸报告数据泄露；欧盟 AI 法案实施细节明确
+                    <p class="briefing-summary">
+                        CNCERT 与工信部联合发布高危预警，OpenClaw 全球 23 万 + 实例公网裸奔；墨西哥政府 1.95 亿条记录遭 AI 攻击泄露；APT28 利用 AI 增强型零日漏洞进行间谍活动。自主式 AI 勒索软件管道即将爆发。
+                    </p>
+                    <div class="briefing-stats">
+                        <span class="stat-item stat-critical">🔴 极高 2</span>
+                        <span class="stat-item stat-high">🟠 高 3</span>
+                        <span class="stat-item">🟡 中 3</span>
+                        <span class="stat-item">共 8 条事件</span>
                     </div>
-                    <div class="briefing-meta">
-                        <a href="ai-security-20260310.html" class="read-more">
-                            阅读全文 <span>→</span>
-                        </a>
-                        <span class="article-count">8 篇文章</span>
+                </article>
+
+                <article class="briefing-item">
+                    <div class="briefing-header">
+                        <span class="briefing-date">📅 2026-03-25</span>
+                        <h2 class="briefing-title">Microsoft 数据安全索引 · IBM AI 防御 · 越南 AI 法生效</h2>
+                    </div>
+                    <p class="briefing-summary">
+                        Microsoft 发布 2026 年资料安全性索引；IBM AI 网络安全防御报告；Cloudflare 预测式 AI 安全指南；中国互联网联合辟谣平台澄清 AI 治理谣言；智源研究院发布 2026 国际 AI 安全报告。
+                    </p>
+                    <div class="briefing-stats">
+                        <span class="stat-item stat-high">🟠 高 3</span>
+                        <span class="stat-item">🟡 中 2</span>
+                        <span class="stat-item">共 5 条事件</span>
                     </div>
                 </article>
             </div>
         </main>
 
         <footer>
-            <div class="footer-content">
-                <div class="publish-time">
-                    <span>🕐</span><span>发布时间：2026-03-31 10:06:44 GMT+8</span>
-                </div>
-                <p style="margin-top: 12px;">AI Security Briefing — 开源 AI 安全情报项目</p>
-                <div class="footer-links">
-                    <a href="https://github.com/caoyu/ai-security-briefing" target="_blank">GitHub</a>
-                    <a href="https://github.com/caoyu/ai-security-briefing/issues" target="_blank">Issues</a>
-                    <a href="https://github.com/caoyu/ai-security-briefing/blob/main/LICENSE" target="_blank">License</a>
-                </div>
+            <p>
+                <strong>AI Security Briefing</strong> — 每日 AI 安全威胁情报
+            </p>
+            <p>
+                自动生成 · 风险分级 · 行动建议
+            </p>
+            <div class="footer-links">
+                <a href="https://github.com/caoyu/ai-security-briefing" target="_blank">GitHub 仓库</a>
+                <a href="https://github.com/caoyu/ai-security-briefing/issues" target="_blank">反馈问题</a>
+                <a href="https://github.com/caoyu/ai-security-briefing" target="_blank">RSS 订阅</a>
             </div>
         </footer>
     </div>
