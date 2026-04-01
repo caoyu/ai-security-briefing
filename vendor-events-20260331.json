@@ -1,0 +1,58 @@
+{
+  "generated_at": "2026-03-31T10:51:32.489692",
+  "total_events": 5,
+  "international_count": 3,
+  "domestic_count": 2,
+  "events": [
+    {
+      "vendor": "Microsoft",
+      "type": "AI 安全研究",
+      "title": "2026 年 Microsoft 资料安全性索引发布",
+      "summary": "分析 1,725 位资料安全领导者，揭示生成式 AI 在组织中的安全使用现状与风险",
+      "url": "https://www.microsoft.com/zh-hk/security/security-insider/emerging-trends/cyber-pulse-ai-security-report",
+      "source": "Microsoft Security",
+      "source_url": "https://www.microsoft.com/security",
+      "region": "international"
+    },
+    {
+      "vendor": "IBM",
+      "type": "AI 网络安全",
+      "title": "AI 驱动网络安全防御，欺诈成本降低 90%",
+      "summary": "IBM 发布 AI 网络安全报告，AI 模型可分析登录风险，通过行为数据验证用户，有效防止钓鱼和恶意软件",
+      "url": "https://www.ibm.com/security/artificial-intelligence",
+      "source": "IBM Security",
+      "source_url": "https://www.ibm.com/security",
+      "region": "international"
+    },
+    {
+      "vendor": "Cloudflare",
+      "type": "预测式 AI 安全",
+      "title": "预测式 AI 加强网络威胁检测",
+      "summary": "Cloudflare 发布 AI 网络安全指南，预测式 AI 可检测机器人、恶意软件、零日漏洞利用，提升威胁情报能力",
+      "url": "https://www.cloudflare.com/learning/ai/ai-for-cybersecurity/",
+      "source": "Cloudflare",
+      "source_url": "https://www.cloudflare.com",
+      "region": "international"
+    },
+    {
+      "vendor": "360",
+      "type": "AI 安全治理",
+      "title": "关注 AI 安全治理政策动态",
+      "summary": "中国互联网联合辟谣平台澄清：网传'七部门发布 AI 安全治理三年行动计划'系谣言，请以官方渠道为准",
+      "url": "http://www.piyao.org.cn/20260317/c26491ced6d246bea6565c73e35da4a6/c.html",
+      "source": "中国互联网联合辟谣平台",
+      "source_url": "http://www.piyao.org.cn",
+      "region": "domestic"
+    },
+    {
+      "vendor": "智源研究院",
+      "type": "AI 安全报告",
+      "title": "图灵奖得主 Bengio 领衔发布《2026 国际人工智能安全报告》",
+      "summary": "100+ 独立专家联合发布，聚焦 AI 新兴风险、网络安全威胁实证、部署前安全测试挑战等核心议题",
+      "url": "https://hub.baai.ac.cn/view/52420",
+      "source": "北京智源人工智能研究院",
+      "source_url": "https://hub.baai.ac.cn",
+      "region": "domestic"
+    }
+  ]
+}
