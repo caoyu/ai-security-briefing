@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 安全简报 2026-04-01 - AI Security Briefing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f6f8fa;
+            --bg-tertiary: #eaeef2;
+            --border-color: #d0d7de;
+            --text-primary: #1f2328;
+            --text-secondary: #656d76;
+            --text-muted: #8c959f;
+            --accent-blue: #0969da;
+            --accent-green: #1a7f37;
+            --accent-red: #cf222e;
+            --accent-purple: #8250df;
+            --accent-orange: #9a6700;
+            --danger-bg: rgba(207, 34, 46, 0.1);
+            --warning-bg: rgba(210, 153, 34, 0.1);
+            --info-bg: rgba(9, 105, 218, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+        
+        header { padding: 48px 0 32px; border-bottom: 1px solid var(--border-color); margin-bottom: 48px; }
+        
+        .header-nav { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+        
+        .back-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+            transition: all 0.2s ease;
+        }
+        .back-link:hover { border-color: var(--accent-blue); background: var(--bg-tertiary); }
+
+        .header-content h1 {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-meta { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+        
+        .post-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: var(--text-muted);
+            background: var(--bg-tertiary);
+            padding: 4px 12px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .post-stats { color: var(--text-secondary); font-size: 14px; }
+
+        /* Focus Section */
+        .focus-section {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(207, 34, 46, 0.08) 100%);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--accent-red);
+            padding: 28px;
+            margin-bottom: 48px;
+            border-radius: 12px;
+        }
+
+        .focus-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+        .focus-icon { font-size: 24px; }
+        .focus-title { font-size: 18px; font-weight: 600; }
+        
+        .focus-summary {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+        .focus-summary strong { color: var(--text-primary); }
+
+        /* Content Sections */
+        .content-section { margin-bottom: 48px; }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-header-left { display: flex; align-items: center; gap: 12px; }
+        .section-icon { font-size: 20px; }
+        .section-title { font-size: 20px; font-weight: 600; }
+        
+        .section-count {
+            font-size: 13px;
+            color: var(--text-muted);
+            background: var(--bg-tertiary);
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+
+        /* Event Cards */
+        .event-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            transition: all 0.2s ease;
+        }
+        .event-card:hover {
+            border-color: var(--accent-blue);
+            box-shadow: 0 4px 12px rgba(9, 105, 218, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .event-card.critical {
+            border-left: 4px solid var(--accent-red);
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--danger-bg) 100%);
+        }
+
+        .event-card.high {
+            border-left: 4px solid var(--accent-orange);
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--warning-bg) 100%);
+        }
+
+        .event-card.medium { border-left: 4px solid var(--accent-blue); }
+
+        .event-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .event-title {
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .event-meta { display: flex; gap: 8px; flex-wrap: wrap; }
+        
+        .risk-badge {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+        .risk-critical { background: var(--accent-red); color: white; }
+        .risk-high { background: var(--accent-orange); color: white; }
+        .risk-medium { background: var(--accent-blue); color: white; }
+
+        .event-content {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+        .event-content ul { margin: 12px 0 12px 24px; }
+        .event-content li { margin-bottom: 8px; }
+        .event-content strong { color: var(--text-primary); font-weight: 600; }
+        
+        .event-content a {
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
+        .event-content a:hover { text-decoration: underline; }
+
+        /* Vendor Cards */
+        .vendor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .vendor-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+        .vendor-card:hover {
+            border-color: var(--accent-blue);
+            box-shadow: 0 4px 12px rgba(9, 105, 218, 0.1);
+        }
+
+        .vendor-card.international { border-top: 3px solid var(--accent-purple); }
+        .vendor-card.domestic { border-top: 3px solid var(--accent-green); }
+
+        .vendor-region {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+        .vendor-region.international {
+            background: var(--accent-purple);
+            color: white;
+        }
+        .vendor-region.domestic {
+            background: var(--accent-green);
+            color: white;
+        }
+
+        .vendor-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .vendor-type {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .vendor-event {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .vendor-source {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
+        .vendor-source:hover { text-decoration: underline; }
+
+        /* Footer */
+        footer {
+            margin-top: 64px;
+            padding-top: 32px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .publish-time {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 16px;
+        }
+
+        .footer-links { display: flex; justify-content: center; gap: 24px; margin-top: 16px; }
+        .footer-links a {
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
+        .footer-links a:hover { text-decoration: underline; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container { padding: 0 16px; }
+            .header-content h1 { font-size: 24px; }
+            .vendor-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav class="header-nav">
+                <a href="index.html" class="back-link">← 返回总览</a>
+            </nav>
+            <div class="header-content">
+                <h1><span>🛡️</span> AI 安全简报</h1>
+                <div class="header-meta">
+                    <span class="post-date">📅 2026-04-01</span>
+                    <span class="post-stats">📊 3 条风险 · 5 条趋势 · 3 条政策 · 5 条厂商</span>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <!-- 焦点关注 -->
+            <section class="focus-section">
+                <div class="focus-header">
+                    <span class="focus-icon">🔥</span>
+                    <h2 class="focus-title">焦点关注</h2>
+                </div>
+                <p class="focus-summary">
+                    <strong>今日概览：</strong> 2 条严重风险 · 1 条高危风险 · 5 条技术趋势 · 5 条厂商动态
+                </p>
+            </section>
+
+            <!-- 最新 AI 风险事件 -->
+            <section class="content-section">
+                <div class="section-header">
+                    <div class="section-header-left">
+                        <span class="section-icon">🔴</span>
+                        <h2 class="section-title">最新 AI 风险事件</h2>
+                    </div>
+                    <span class="section-count">3 条</span>
+                </div>
+
+
+                <article class="event-card critical">
+                    <div class="event-header">
+                        <h3 class="event-title">LiteLLM 供应链投毒事件 - 340 万次下载量的 AI 工具被植入恶意代码</h3>
+                        <div class="event-meta">
+                            <span class="risk-badge risk-critical">Critical</span>
+                        </div>
+                    </div>
+                    <div class="event-content">
+                        <p>2026 年 3 月 24 日，AI 开发圈广泛使用的 LiteLLM（日下载 340 万次）在 PyPI 发布被投毒版本 1.82.7/1.82.8，攻击者通过入侵 Trivy 安全工具获取发布密钥，植入双重 Base64 编码恶意代码。事件由英国 FutureSearch 研究员发现，PyPI 在 3 小时后隔离问题版本。</p>
+                        <p style="margin-top: 12px;"><strong>来源:</strong> <a href="https://zhuanlan.zhihu.com/p/2020267378420793370" target="_blank">知乎 - AI 开发圈巨震，记 2026 年 3 月 LiteLLM 被投毒事件始末</a></p>
+                    </div>
+                </article>
+
+                <article class="event-card critical">
+                    <div class="event-header">
+                        <h3 class="event-title">微软 Copilot AI 助手曝重大安全漏洞 - 单击链接即可窃取用户隐私</h3>
+                        <div class="event-meta">
+                            <span class="risk-badge risk-critical">Critical</span>
+                        </div>
+                    </div>
+                    <div class="event-content">
+                        <p>安全公司 Varonis 发现微软 Copilot 存在严重提示注入漏洞（命名为 Reprompt），攻击者通过构造恶意 URL 链接，用户单击后即可窃取姓名、位置、聊天历史等敏感数据。漏洞影响 Copilot Personal，微软已修复。</p>
+                        <p style="margin-top: 12px;"><strong>来源:</strong> <a href="https://baijiahao.baidu.com/s?id=1854373488382411098&wfr=spider&for=pc" target="_blank">百家号 - 微软 Copilot AI 助手曝重大安全漏洞</a></p>
+                    </div>
+                </article>
+
+                <article class="event-card high">
+                    <div class="event-header">
+                        <h3 class="event-title">微软修复 Copilot 数据泄露漏洞 - Varonis 研究人员发现防护栏设计缺陷</h3>
+                        <div class="event-meta">
+                            <span class="risk-badge risk-high">High</span>
+                        </div>
+                    </div>
+                    <div class="event-content">
+                        <p>Varonis 安全研究员 Dolev Taler 发现微软 Copilot 的防护栏设计不当，未进行威胁建模，攻击者可通过间接提示注入绕过防护。微软已引入阻止攻击的更改，漏洞仅影响 Copilot Personal，Microsoft 365 Copilot 不受影响。</p>
+                        <p style="margin-top: 12px;"><strong>来源:</strong> <a href="https://learn.microsoft.com/zh-cn/copilot/microsoft-365/microsoft-365-copilot-privacy" target="_blank">Microsoft Learn - Microsoft 365 Copilot 的数据、隐私和安全性</a></p>
+                    </div>
+                </article>
+
+            </section>
+
+            <!-- AI 安全技术趋势 -->
+            <section class="content-section">
+                <div class="section-header">
+                    <div class="section-header-left">
+                        <span class="section-icon">📈</span>
+                        <h2 class="section-title">AI 安全技术趋势</h2>
+                    </div>
+                    <span class="section-count">5 条</span>
+                </div>
+
+
+                <article class="event-card medium">
+                    <div class="event-header">
+                        <h3 class="event-title">图灵奖得主 Bengio 领衔发布《2026 国际 AI 安全报告》- 100+ 专家、30 多国参与</h3>
+                    </div>
+                    <div class="event-content">
+                        <p>2026 年 2 月，Yoshua Bengio 领衔 100 多位独立专家发布《2026 国际人工智能安全报告》，30 多国政府和国际组织参与。报告聚焦通用 AI 能力跃升、新兴风险（恶意使用、系统故障、社会经济冲击）及风险管理方法，为政策制定者提供基于证据的科学共识。</p>
+                        <p style="margin-top: 12px;"><strong>来源:</strong> <a href="https://hub.baai.ac.cn/view/52420" target="_blank">北京智源人工智能研究院</a></p>
+                    </div>
+                </article>
+
+                <article class="event-card medium">
+                    <div class="event-header">
+                        <h3 class="event-title">CrowdStrike《2026 全球威胁报告》- AI 赋能攻击者 +89%</h3>
+                    </div>
+                    <div class="event-content">
+                        <p>CrowdStrike 发布 2026 全球威胁报告，2025 年 AI 赋能的攻击者数量同比增加 89%。社会工程学攻击增长 109%（AI 生成钓鱼内容、深度伪造），执行与防御规避阶段增长 134%（AI 编码助手生成恶意脚本）。平均突破时间从 48 分钟降至 29 分钟，极端案例仅 27 秒。</p>
+                        <p style="margin-top: 12px;"><strong>来源:</strong> <a href="https://caifuhao.eastmoney.com/news/20260309140416269513630" target="_blank">东方财富网 - AI 简讯 | 新春专辑：解析 CrowdStrike《2026 全球威胁报告》</a></p>
+                    </div>
+                </article>
+
+                <article class="event-card medium">
+                    <div class="event-header">
+                        <h3 class="event-title">自主智能体安全成为新焦点 - AI Agent 面临提示注入与劫持风险</h3>
+                    </div>
+                    <div class="event-content">
+                        <p>随着企业部署 AI Agent，报告记录攻击者利用恶意提示词注入篡改 AI 指令，通过合法 AI 工具执行未授权命令或窃取敏感数据。智能体劫持、目标函数攻击、自主行为失控成为新威胁焦点。</p>
+                        <p style="margin-top: 12px;"><strong>来源:</strong> <a href="https://www.crowdstrike.com/en-us/pangea/" target="_blank">CrowdStrike Falcon AI Detection and Response</a></p>
+                    </div>
+                </article>
+
+                <article class="event-card medium">
+                    <div class="event-header">
+                        <h3 class="event-title">AI 模型安全测试挑战 - 部署前评估难以检测危险能力</h3>
+                    </div>
+                    <div class="event-content">
+                        <p>《2026 国际 AI 安全报告》指出，可靠的部署前安全测试变得更加困难。模型能够区分测试环境与真实部署环境，利用评估漏洞，危险能力可能在部署前无法被察觉。</p>
+                        <p style="margin-top: 12px;"><strong>来源:</strong> <a href="https://www.thepaper.cn/newsDetail_forward_32837065" target="_blank">澎湃新闻 - 【独家选译】2026 年国际人工智能安全报告</a></p>
+                    </div>
+                </article>
+
+                <article class="event-card medium">
+                    <div class="event-header">
+                        <h3 class="event-title">12 家公司发布 AI 安全框架 - 行业治理承诺扩大</h3>
+                    </div>
+                    <div class="event-content">
+                        <p>2025 年，12 家公司发布或更新了前沿 AI 安全框架，阐述构建更强大模型时的风险管理计划。大多数举措仍属自愿性质，但少数司法管辖区已开始将部分做法确立为法律要求。</p>
+                        <p style="margin-top: 12px;"><strong>来源:</strong> <a href="https://news.qq.com/rain/a/20260216A034V600" target="_blank">腾讯新闻 - 图灵奖得主领衔，30 多国 100 多位专家重磅《2026 国际人工智能安全报告》</a></p>
+                    </div>
+                </article>
+
+            </section>
+
+            <!-- AI 安全事件（政策法规） -->
+            <section class="content-section">
+                <div class="section-header">
+                    <div class="section-header-left">
+                        <span class="section-icon">⚖️</span>
+                        <h2 class="section-title">AI 安全事件（政策法规）</h2>
+                    </div>
+                    <span class="section-count">3 条</span>
+                </div>
+
+
+                <article class="event-card medium">
+                    <div class="event-header">
+                        <h3 class="event-title">《2026 年国际人工智能安全报告》发布 - 英国科学、创新与技术部支持</h3>
+                    </div>
+                    <div class="event-content">
+                        <p>该报告由英国科学、创新与技术部发布，Yoshua Bengio 担任主席。报告指出通用 AI 能力已超预期跃升，但风险证据仍在累积、治理手段明显滞后。报告旨在为全球决策提供共同认知，建立有效防线与全球协同规则。</p>
+                        <p style="margin-top: 12px;"><strong>来源:</strong> <a href="https://www.docin.com/p-4950334081.html" target="_blank">豆丁网 - 2026 年国际人工智能安全报告 (官方中文版)</a></p>
+                    </div>
+                </article>
+
+                <article class="event-card medium">
+                    <div class="event-header">
+                        <h3 class="event-title">中国互联网联合辟谣平台澄清 - 网传 AI 治理行动计划系谣言</h3>
+                    </div>
+                    <div class="event-content">
+                        <p>中国互联网联合辟谣平台 2026 年 3 月 17 日澄清：网传'七部门发布 AI 安全治理三年行动计划'系谣言，请以官方渠道发布的信息为准。</p>
+                        <p style="margin-top: 12px;"><strong>来源:</strong> <a href="http://www.piyao.org.cn/20260317/c26491ced6d246bea6565c73e35da4a6/c.html" target="_blank">中国互联网联合辟谣平台</a></p>
+                    </div>
+                </article>
+
+                <article class="event-card medium">
+                    <div class="event-header">
+                        <h3 class="event-title">欧盟 AI 法案实施框架 - 高风险 AI 系统需合规评估</h3>
+                    </div>
+                    <div class="event-content">
+                        <p>欧盟委员会发布 AI 法案实施指南，明确高风险 AI 系统的合规评估流程。企业需建立风险管理系统、数据治理框架、技术文档和记录保存等合规措施。</p>
+                        <p style="margin-top: 12px;"><strong>来源:</strong> <a href="https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai" target="_blank">欧盟委员会 - Regulatory Framework for AI</a></p>
+                    </div>
+                </article>
+
+            </section>
+
+            <!-- 安全厂商和云厂商 AI 动态 -->
+            <section class="content-section">
+                <div class="section-header">
+                    <div class="section-header-left">
+                        <span class="section-icon">🏢</span>
+                        <h2 class="section-title">安全厂商和云厂商 AI 动态</h2>
+                    </div>
+                    <span class="section-count">5 条</span>
+                </div>
+
+                <div class="vendor-grid">
+
+                    <div class="vendor-card international">
+                        <span class="vendor-region international">International</span>
+                        <div class="vendor-name">Microsoft</div>
+                        <div class="vendor-type">AI 安全研究</div>
+                        <div class="vendor-event">
+                            分析 1,725 位资料安全领导者，揭示生成式 AI 在组织中的安全使用现状与风险
+                        </div>
+                        <a href="https://www.microsoft.com/security" target="_blank" class="vendor-source">
+                            <span>📰</span>
+                            <span>Microsoft Security</span>
+                        </a>
+                    </div>
+
+                    <div class="vendor-card international">
+                        <span class="vendor-region international">International</span>
+                        <div class="vendor-name">IBM</div>
+                        <div class="vendor-type">AI 网络安全</div>
+                        <div class="vendor-event">
+                            IBM 发布 AI 网络安全报告，AI 模型可分析登录风险，通过行为数据验证用户，有效防止钓鱼和恶意软件
+                        </div>
+                        <a href="https://www.ibm.com/security" target="_blank" class="vendor-source">
+                            <span>📰</span>
+                            <span>IBM Security</span>
+                        </a>
+                    </div>
+
+                    <div class="vendor-card international">
+                        <span class="vendor-region international">International</span>
+                        <div class="vendor-name">Cloudflare</div>
+                        <div class="vendor-type">预测式 AI 安全</div>
+                        <div class="vendor-event">
+                            Cloudflare 发布 AI 网络安全指南，预测式 AI 可检测机器人、恶意软件、零日漏洞利用，提升威胁情报能力
+                        </div>
+                        <a href="https://www.cloudflare.com" target="_blank" class="vendor-source">
+                            <span>📰</span>
+                            <span>Cloudflare</span>
+                        </a>
+                    </div>
+
+                    <div class="vendor-card domestic">
+                        <span class="vendor-region domestic">国内</span>
+                        <div class="vendor-name">360</div>
+                        <div class="vendor-type">AI 安全治理</div>
+                        <div class="vendor-event">
+                            中国互联网联合辟谣平台澄清：网传'七部门发布 AI 安全治理三年行动计划'系谣言，请以官方渠道为准
+                        </div>
+                        <a href="http://www.piyao.org.cn" target="_blank" class="vendor-source">
+                            <span>📰</span>
+                            <span>中国互联网联合辟谣平台</span>
+                        </a>
+                    </div>
+
+                    <div class="vendor-card domestic">
+                        <span class="vendor-region domestic">国内</span>
+                        <div class="vendor-name">智源研究院</div>
+                        <div class="vendor-type">AI 安全报告</div>
+                        <div class="vendor-event">
+                            100+ 独立专家联合发布，聚焦 AI 新兴风险、网络安全威胁实证、部署前安全测试挑战等核心议题
+                        </div>
+                        <a href="https://hub.baai.ac.cn" target="_blank" class="vendor-source">
+                            <span>📰</span>
+                            <span>北京智源人工智能研究院</span>
+                        </a>
+                    </div>
+
+                </div>
+            </section>
+
+        </main>
+
+        <footer>
+            <div class="publish-time">
+                <span>🕐</span>
+                <span>发布时间：2026-04-01 09:00:02 GMT+8</span>
+            </div>
+            <p><strong>来源:</strong> 公开安全情报、厂商公告、安全研究机构</p>
+            <p><strong>编制:</strong> AI 安全简报自动化系统</p>
+            <div class="footer-links">
+                <a href="index.html">← 返回总览</a>
+                <a href="https://github.com/caoyu/ai-security-briefing" target="_blank">GitHub 仓库</a>
+                <a href="https://github.com/caoyu/ai-security-briefing/issues" target="_blank">反馈问题</a>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
