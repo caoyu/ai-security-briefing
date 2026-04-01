@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """
 AI Vendor Tracker - 自动收集主流安全厂商的 AI 安全事件
-数据源：web_search API + RSS 订阅
+数据源：web_search API
 """
 
 import json
-import os
-from datetime import datetime, timedelta
+import subprocess
+import sys
+from datetime import datetime
 from pathlib import Path
 
 # 厂商配置
@@ -35,76 +36,99 @@ MAX_EVENTS = 5
 MAX_INTERNATIONAL = 3
 MAX_DOMESTIC = 2
 
-# 今日真实新闻数据（从 web_search 获取）
-TODAY_NEWS = [
-    {
-        "vendor": "Microsoft",
-        "type": "AI 安全研究",
-        "title": "2026 年 Microsoft 资料安全性索引发布",
-        "summary": "分析 1,725 位资料安全领导者，揭示生成式 AI 在组织中的安全使用现状与风险",
-        "url": "https://www.microsoft.com/zh-hk/security/security-insider/emerging-trends/cyber-pulse-ai-security-report",
-        "source": "Microsoft Security",
-        "source_url": "https://www.microsoft.com/security",
-        "region": "international"
-    },
-    {
-        "vendor": "IBM",
-        "type": "AI 网络安全",
-        "title": "AI 驱动网络安全防御，欺诈成本降低 90%",
-        "summary": "IBM 发布 AI 网络安全报告，AI 模型可分析登录风险，通过行为数据验证用户，有效防止钓鱼和恶意软件",
-        "url": "https://www.ibm.com/security/artificial-intelligence",
-        "source": "IBM Security",
-        "source_url": "https://www.ibm.com/security",
-        "region": "international"
-    },
-    {
-        "vendor": "Cloudflare",
-        "type": "预测式 AI 安全",
-        "title": "预测式 AI 加强网络威胁检测",
-        "summary": "Cloudflare 发布 AI 网络安全指南，预测式 AI 可检测机器人、恶意软件、零日漏洞利用，提升威胁情报能力",
-        "url": "https://www.cloudflare.com/learning/ai/ai-for-cybersecurity/",
-        "source": "Cloudflare",
-        "source_url": "https://www.cloudflare.com",
-        "region": "international"
-    },
-    {
-        "vendor": "360",
-        "type": "AI 安全治理",
-        "title": "关注 AI 安全治理政策动态",
-        "summary": "中国互联网联合辟谣平台澄清：网传'七部门发布 AI 安全治理三年行动计划'系谣言，请以官方渠道为准",
-        "url": "http://www.piyao.org.cn/20260317/c26491ced6d246bea6565c73e35da4a6/c.html",
-        "source": "中国互联网联合辟谣平台",
-        "source_url": "http://www.piyao.org.cn",
-        "region": "domestic"
-    },
-    {
-        "vendor": "智源研究院",
-        "type": "AI 安全报告",
-        "title": "图灵奖得主 Bengio 领衔发布《2026 国际人工智能安全报告》",
-        "summary": "100+ 独立专家联合发布，聚焦 AI 新兴风险、网络安全威胁实证、部署前安全测试挑战等核心议题",
-        "url": "https://hub.baai.ac.cn/view/52420",
-        "source": "北京智源人工智能研究院",
-        "source_url": "https://hub.baai.ac.cn",
-        "region": "domestic"
-    },
-]
+def run_web_search(query, count=10, freshness="week"):
+    """调用 web_search API 获取最新新闻"""
+    try:
+        result = subprocess.run(
+            ['openclaw', 'tool', 'web_search', '--query', query, '--count', str(count), '--freshness', freshness],
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True, timeout=60
+        )
+        if result.returncode == 0:
+            data = json.loads(result.stdout)
+            if data.get('ok') and 'result' in data:
+                result_data = json.loads(data['result']['content'][0]['text'])
+                return result_data.get('pages', [])
+        return []
+    except Exception as e:
+        print(f"Web search error: {e}")
+        return []
+
+def fetch_vendor_news():
+    """获取厂商 AI 安全新闻"""
+    queries = [
+        "CrowdStrike AI security 2026",
+        "Palo Alto Networks AI cybersecurity",
+        "360 奇安信 AI 安全",
+        "AI security vendor news March 2026",
+        "网络安全厂商 AI 产品发布"
+    ]
+    
+    all_results = []
+    for query in queries:
+        results = run_web_search(query, count=5, freshness="week")
+        all_results.extend(results[:2])
+    
+    # 去重（基于 URL）
+    seen_urls = set()
+    unique_results = []
+    for item in all_results:
+        url = item.get('url', '')
+        if url and url not in seen_urls:
+            seen_urls.add(url)
+            unique_results.append(item)
+    
+    return unique_results[:10]
+
+def classify_vendor(vendor_name, title, snippet):
+    """根据内容分类厂商"""
+    text = (vendor_name + title + snippet).lower()
+    
+    # 国内厂商关键词
+    domestic_keywords = ['360', '奇安信', '安恒', '深信服', '启明星辰', '山石', '腾讯', '阿里', '华为', '中国', '国内']
+    
+    for kw in domestic_keywords:
+        if kw in text:
+            return 'domestic'
+    
+    return 'international'
 
 def get_vendor_events():
-    """
-    收集厂商 AI 安全事件
-    使用真实新闻数据（从 web_search API 获取）
-    """
+    """收集厂商 AI 安全事件"""
     events = []
     
-    # 国际厂商优先（最多 3 条）
-    international = [e for e in TODAY_NEWS if e["region"] == "international"]
-    events.extend(international[:MAX_INTERNATIONAL])
+    # 获取最新新闻
+    news_items = fetch_vendor_news()
     
-    # 国内厂商（最多 2 条）
-    domestic = [e for e in TODAY_NEWS if e["region"] == "domestic"]
-    events.extend(domestic[:MAX_DOMESTIC])
+    for item in news_items:
+        title = item.get('title', '')
+        snippet = item.get('snippet', '')[:500]
+        url = item.get('url', '#')
+        hostname = item.get('hostname', '')
+        
+        # 分类厂商
+        region = classify_vendor(hostname, title, snippet)
+        
+        # 提取厂商名称（简化处理）
+        vendor = hostname if hostname else 'Unknown Vendor'
+        vendor_type = 'AI 安全'
+        
+        events.append({
+            "vendor": vendor,
+            "type": vendor_type,
+            "title": title,
+            "summary": snippet,
+            "url": url,
+            "source": hostname or '安全媒体',
+            "source_url": url,
+            "region": region
+        })
     
-    return events[:MAX_EVENTS]
+    # 国际优先，最多 5 条
+    international = [e for e in events if e["region"] == "international"][:MAX_INTERNATIONAL]
+    domestic = [e for e in events if e["region"] == "domestic"][:MAX_DOMESTIC]
+    
+    result = international + domestic
+    return result[:MAX_EVENTS]
 
 def save_events(events, output_dir):
     """保存事件到 JSON 文件"""
@@ -196,12 +220,30 @@ def main():
     output_dir = Path(__file__).parent.parent
     output_dir.mkdir(parents=True, exist_ok=True)
     
-    # 收集事件
+    print("🔍 正在搜索厂商 AI 安全新闻...")
     events = get_vendor_events()
+    
+    if not events:
+        print("⚠️ 未能获取新闻，使用备用数据")
+        # 备用数据
+        events = [
+            {
+                "vendor": "Security Vendor",
+                "type": "AI 安全",
+                "title": "AI Security Update",
+                "summary": "Latest AI security developments",
+                "url": "https://example.com",
+                "source": "Security News",
+                "source_url": "https://example.com",
+                "region": "international"
+            }
+        ]
+    
+    print(f"✓ 获取到 {len(events)} 条厂商事件")
     
     # 保存 JSON
     output_file = save_events(events, output_dir)
-    print(f"✓ 已保存 {len(events)} 条厂商事件到：{output_file}")
+    print(f"✓ 已保存厂商事件到：{output_file}")
     
     # 生成 HTML 片段
     html_snippet = generate_html_snippet(events)
