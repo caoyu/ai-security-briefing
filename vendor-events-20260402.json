@@ -1,0 +1,18 @@
+{
+  "generated_at": "2026-04-02T09:00:01.348702",
+  "total_events": 1,
+  "international_count": 1,
+  "domestic_count": 0,
+  "events": [
+    {
+      "vendor": "Security Vendor",
+      "type": "AI 安全",
+      "title": "AI Security Update",
+      "summary": "Latest AI security developments",
+      "url": "https://example.com",
+      "source": "Security News",
+      "source_url": "https://example.com",
+      "region": "international"
+    }
+  ]
+}

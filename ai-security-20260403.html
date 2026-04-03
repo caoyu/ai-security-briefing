@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 安全简报 2026-04-03 - AI Security Briefing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f6f8fa;
+            --bg-tertiary: #eaeef2;
+            --border-color: #d0d7de;
+            --text-primary: #1f2328;
+            --text-secondary: #656d76;
+            --text-muted: #8c959f;
+            --accent-blue: #0969da;
+            --accent-green: #1a7f37;
+            --accent-red: #cf222e;
+            --accent-purple: #8250df;
+            --accent-orange: #9a6700;
+            --danger-bg: rgba(207, 34, 46, 0.1);
+            --warning-bg: rgba(210, 153, 34, 0.1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+        header { padding: 48px 0 32px; border-bottom: 1px solid var(--border-color); margin-bottom: 48px; }
+        .header-nav { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+        .back-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+            transition: all 0.2s ease;
+        }
+        .back-link:hover { border-color: var(--accent-blue); background: var(--bg-tertiary); }
+        .header-content h1 {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .header-meta { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+        .post-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: var(--text-muted);
+            background: var(--bg-tertiary);
+            padding: 4px 12px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+        }
+        .post-stats { color: var(--text-secondary); font-size: 14px; }
+        .focus-section {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(207, 34, 46, 0.08) 100%);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--accent-red);
+            padding: 28px;
+            margin-bottom: 48px;
+            border-radius: 12px;
+        }
+        .focus-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+        .focus-icon { font-size: 24px; }
+        .focus-title { font-size: 18px; font-weight: 600; }
+        .focus-summary { color: var(--text-secondary); font-size: 15px; line-height: 1.7; }
+        .focus-source { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
+        .source-tag {
+            font-size: 13px;
+            color: var(--text-muted);
+            background: var(--bg-tertiary);
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+        }
+        .content-section { margin-bottom: 48px; }
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .section-header-left { display: flex; align-items: center; gap: 12px; }
+        .section-icon { font-size: 20px; }
+        .section-title { font-size: 20px; font-weight: 600; }
+        .section-count {
+            font-size: 13px;
+            color: var(--text-muted);
+            background: var(--bg-tertiary);
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+        .event-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            transition: all 0.2s ease;
+        }
+        .event-card:hover { border-color: var(--accent-blue); box-shadow: 0 4px 12px rgba(9, 105, 218, 0.1); transform: translateY(-2px); }
+        .event-card.critical {
+            border-left: 4px solid var(--accent-red);
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--danger-bg) 100%);
+        }
+        .event-card.high {
+            border-left: 4px solid var(--accent-orange);
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--warning-bg) 100%);
+        }
+        .event-card.medium { border-left: 4px solid var(--accent-blue); }
+        .event-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
+        .event-title { font-size: 18px; font-weight: 600; line-height: 1.4; }
+        .event-meta { display: flex; gap: 8px; flex-wrap: wrap; }
+        .risk-badge {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+        .risk-critical { background: var(--accent-red); color: white; }
+        .risk-high { background: var(--accent-orange); color: white; }
+        .risk-medium { background: var(--accent-blue); color: white; }
+        .event-content { color: var(--text-secondary); font-size: 15px; line-height: 1.7; }
+        .event-content ul { margin: 12px 0 12px 24px; }
+        .event-content li { margin-bottom: 8px; }
+        .event-content strong { color: var(--text-primary); font-weight: 600; }
+        .event-tags { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+        .event-tag {
+            font-size: 12px;
+            color: var(--text-muted);
+            background: var(--bg-tertiary);
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+        }
+        .trend-section { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 12px; padding: 24px; margin-bottom: 32px; }
+        .trend-section h3 { font-size: 16px; margin-bottom: 12px; }
+        .action-section { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 12px; padding: 24px; margin-top: 32px; }
+        .action-list { list-style: none; padding: 0; }
+        .action-list li {
+            padding: 8px 0;
+            color: var(--text-secondary);
+            font-size: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .action-list li::before { content: '☐'; color: var(--text-muted); font-size: 16px; }
+        footer {
+            margin-top: 64px;
+            padding-top: 32px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 13px;
+            text-align: center;
+        }
+        .footer-links { display: flex; justify-content: center; gap: 24px; margin-top: 16px; }
+        .footer-links a { color: var(--accent-blue); text-decoration: none; }
+        .footer-links a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav class="header-nav">
+                <a href="index.html" class="back-link">← 返回总览</a>
+            </nav>
+            <div class="header-content">
+                <h1><span>🛡️</span> AI 安全简报</h1>
+                <div class="header-meta">
+                    <span class="post-date">📅 2026-04-03</span>
+                    <span class="post-stats">📊 6 条事件 · 2 高危 · 2 中高 · 2 中</span>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section class="focus-section">
+                <div class="focus-header">
+                    <span class="focus-icon">🔥</span>
+                    <h2 class="focus-title">焦点关注</h2>
+                </div>
+                <p class="focus-summary">
+                    <strong>AI 界"核泄漏"：</strong>Anthropic Claude Code 51.2 万行源码因.map 文件意外暴露，4 小时疯传；RSAC 2026 实测所有 AI 编程工具 Prompt 注入成功率 100%，24 个 CVE 已分配。
+                </p>
+                <div class="focus-source">
+                    <span class="source-tag">📰 Anthropic</span>
+                    <span class="source-tag">📰 RSAC 2026</span>
+                    <span class="source-tag">📰 HUMAN Security</span>
+                    <span class="source-tag">📰 HackerOne</span>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <div class="section-header">
+                    <div class="section-header-left">
+                        <span class="section-icon">🔴</span>
+                        <h2 class="section-title">高危风险 (Critical)</h2>
+                    </div>
+                    <span class="section-count">2 条</span>
+                </div>
+
+                <article class="event-card critical">
+                    <div class="event-header">
+                        <h3 class="event-title">Anthropic Claude Code 源码泄露事件 —— AI 界"核泄漏"</h3>
+                        <div class="event-meta">
+                            <span class="risk-badge risk-critical">Critical</span>
+                            <span class="scope-badge">🌍 全球 AI 社区</span>
+                        </div>
+                    </div>
+                    <div class="event-content">
+                        <ul>
+                            <li><strong>时间:</strong> 2026 年 3 月 31 日</li>
+                            <li><strong>风险等级:</strong> 🔴 严重</li>
+                            <li><strong>事件概述:</strong> Anthropic 在 npm 发布 Claude Code v2.1.88 版本时，因构建流程配置失误，意外包含 59.8MB 的.map 调试文件，导致<strong>51.2 万行 TypeScript 源代码</strong>、<strong>1906 个核心文件</strong>完全暴露。</li>
+                            <li><strong>泄露内容:</strong> 未发布功能、内部架构逻辑、工程师注释，甚至暴露"卧底模式"(Undercover Mode)等敏感设计</li>
+                            <li><strong>传播速度:</strong> 4 小时内在 GitHub 疯传，首个备份仓库 3 小时破 10000 Star</li>
+                            <li><strong>安全影响:</strong>
+                                <ul>
+                                    <li>领先 AI 编程能力"平权化"，可能催化恶意 Agent 生态爆发</li>
+                                    <li>技术蓝图落入恶意行为者手中，安全隐患难以估量</li>
+                                </ul>
+                            </li>
+                            <li><strong>官方回应:</strong> Anthropic 定性为"人为失误导致的发布打包问题"，强调未泄露客户数据及凭证</li>
+                        </ul>
+                        <div class="event-tags">
+                            <span class="event-tag">Anthropic</span>
+                            <span class="event-tag">Claude Code</span>
+                            <span class="event-tag">源码泄露</span>
+                            <span class="event-tag">.map 文件</span>
+                            <span class="event-tag">51.2 万行</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="event-card critical">
+                    <div class="event-header">
+                        <h3 class="event-title">RSAC 2026: AI 编程工具 Prompt 注入攻击成功率 100%</h3>
+                        <div class="event-meta">
+                            <span class="risk-badge risk-critical">Critical</span>
+                            <span class="scope-badge">💻 2400 万开发者</span>
+                        </div>
+                    </div>
+                    <div class="event-content">
+                        <ul>
+                            <li><strong>时间:</strong> 2026 年 4 月初 (RSAC 大会现场)</li>
+                            <li><strong>风险等级:</strong> 🔴 严重</li>
+                            <li><strong>事件概述:</strong> 安全研究员 Ari Marzouk 在 RSAC 2026 主舞台演示：所有测试的 AI 编程工具（Claude Code、Cursor、Windsurf、GitHub Copilot、Roo Code、JetBrains Junie、Cline）<strong>Prompt 注入攻击成功率均为 100%</strong>。</li>
+                            <li><strong>攻击链路:</strong> Prompt Injection → Agent Tools → Base IDE Features</li>
+                            <li><strong>已分配 CVE:</strong> <strong>24 个 CVE 编号</strong>，AWS 发布安全通告 AWS-2025-019</li>
+                            <li><strong>技术细节:</strong>
+                                <ul>
+                                    <li>现代 AI 编程工具权限模型存在"集体安全债"：读取文件系统、执行终端命令、管理 git 仓库、调用外部 API</li>
+                                    <li>攻击分三步：通过恶意依赖/文档/代码注释注入 prompt → AI 代理执行指令调用 IDE 功能 → 获得持久化立足点</li>
+                                    <li><strong>持久化攻击：</strong>被注入指令可在数天甚至数周后仍被召回执行</li>
+                                    <li>Cursor 和 Windsurf 基于过时 Chromium/Electron 版本，约 180 万开发者暴露在 94+ 已知浏览器 CVE 下</li>
+                                </ul>
+                            </li>
+                            <li><strong>案例引用:</strong> Moltbook 数据泄露事件——150 万 API 密钥、3.5 万封邮件、整个数据库在 3 分钟内全部暴露</li>
+                        </ul>
+                        <div class="event-tags">
+                            <span class="event-tag">RSAC 2026</span>
+                            <span class="event-tag">Prompt Injection</span>
+                            <span class="event-tag">24 CVEs</span>
+                            <span class="event-tag">100% 成功率</span>
+                            <span class="event-tag">AWS-2025-019</span>
+                        </div>
+                    </div>
+                </article>
+            </section>
+
+            <section class="content-section">
+                <div class="section-header">
+                    <div class="section-header-left">
+                        <span class="section-icon">🟠</span>
+                        <h2 class="section-title">中高风险 (High)</h2>
+                    </div>
+                    <span class="section-count">2 条</span>
+                </div>
+
+                <article class="event-card high">
+                    <div class="event-header">
+                        <h3 class="event-title">HUMAN Security 报告：AI 流量暴增 7851%，互联网"机器化"拐点来临</h3>
+                        <div class="event-meta">
+                            <span class="risk-badge risk-high">High</span>
+                            <span class="scope-badge">🌐 全球互联网</span>
+                        </div>
+                    </div>
+                    <div class="event-content">
+                        <ul>
+                            <li><strong>时间:</strong> 2026 年 3 月 26 日</li>
+                            <li><strong>风险等级:</strong> 🟠 高</li>
+                            <li><strong>核心数据:</strong>
+                                <ul>
+                                    <li>2025 年自动化流量同比增长 <strong>23.51%</strong>，人类流量仅增 <strong>3.10%</strong>（近 8 倍增速差）</li>
+                                    <li>AI 驱动流量月均规模较年初增长 <strong>187%</strong></li>
+                                    <li><strong>Agentic AI 流量同比暴涨 7,851%</strong></li>
+                                    <li>Cloudflare CEO 预测：2027 年 AI 机器人流量将超过人类流量</li>
+                                </ul>
+                            </li>
+                            <li><strong>安全含义:</strong>
+                                <ul>
+                                    <li>AI Agent 不仅读取网页，还能自主浏览、填写表单、执行交易</li>
+                                    <li>传统基于人类注意力的商业转化模型面临失效</li>
+                                    <li>恶意 Agent 可规模化执行网络攻击、欺诈、数据爬取</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="event-tags">
+                            <span class="event-tag">HUMAN Security</span>
+                            <span class="event-tag">AI 流量 +7851%</span>
+                            <span class="event-tag">Agentic AI</span>
+                            <span class="event-tag">机器化拐点</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="event-card high">
+                    <div class="event-header">
+                        <h3 class="event-title">《2026 国际人工智能安全报告》发布：风险证据已确凿</h3>
+                        <div class="event-meta">
+                            <span class="risk-badge risk-high">High</span>
+                            <span class="scope-badge">📋 全球治理</span>
+                        </div>
+                    </div>
+                    <div class="event-content">
+                        <ul>
+                            <li><strong>时间:</strong> 2026 年 2 月 3 日（持续发酵中）</li>
+                            <li><strong>风险等级:</strong> 🟠 高</li>
+                            <li><strong>作者:</strong> 图灵奖得主 Yoshua Bengio 领衔，30+ 位全球顶尖专家</li>
+                            <li><strong>核心结论:</strong>
+                                <ul>
+                                    <li><strong>关键转变:</strong> 从"AI 可能带来的威胁"转向"<strong>证据已经确凿</strong>"</li>
+                                    <li>过去一年中，AI 在发现软件漏洞和编写攻击代码方面能力大幅提升</li>
+                                    <li>国家级攻击组织利用 AI 进行网络行动的案例已被频繁记录</li>
+                                </ul>
+                            </li>
+                            <li><strong>三大风险类别:</strong>
+                                <ol>
+                                    <li><strong>恶意使用:</strong> 助长犯罪、网络攻击、生物武器开发</li>
+                                    <li><strong>系统故障:</strong> 可靠性挑战、失控风险</li>
+                                    <li><strong>社会经济冲击:</strong> 劳动力市场剧变、人类自主性侵蚀</li>
+                                </ol>
+                            </li>
+                        </ul>
+                        <div class="event-tags">
+                            <span class="event-tag">Yoshua Bengio</span>
+                            <span class="event-tag">国际报告</span>
+                            <span class="event-tag">证据确凿</span>
+                            <span class="event-tag">AI 治理</span>
+                        </div>
+                    </div>
+                </article>
+            </section>
+
+            <section class="content-section">
+                <div class="section-header">
+                    <div class="section-header-left">
+                        <span class="section-icon">🟡</span>
+                        <h2 class="section-title">中风险 (Medium)</h2>
+                    </div>
+                    <span class="section-count">2 条</span>
+                </div>
+
+                <article class="event-card medium">
+                    <div class="event-header">
+                        <h3 class="event-title">AI 相关漏洞 2025 年增长 200%，Prompt 注入报告激增 540%</h3>
+                        <div class="event-meta">
+                            <span class="risk-badge risk-medium">Medium</span>
+                            <span class="scope-badge">📊 企业 AI</span>
+                        </div>
+                    </div>
+                    <div class="event-content">
+                        <ul>
+                            <li><strong>时间:</strong> 2026 年初持续趋势</li>
+                            <li><strong>风险等级:</strong> 🟡 中</li>
+                            <li><strong>数据要点:</strong> (HackerOne 2026 预测)
+                                <ul>
+                                    <li>AI 相关漏洞数量增长 <strong>200%</strong></li>
+                                    <li>Prompt 注入报告增长 <strong>540%</strong></li>
+                                    <li>组织对 AI 资产测试增加 <strong>270%</strong></li>
+                                    <li>预测：2026 年底 40% 企业应用将集成 AI 智能体（2025 年初不足 5%）</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="event-tags">
+                            <span class="event-tag">HackerOne</span>
+                            <span class="event-tag">漏洞 +200%</span>
+                            <span class="event-tag">Prompt 注入 +540%</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="event-card medium">
+                    <div class="event-header">
+                        <h3 class="event-title">国家网安通报中心预警：OpenClaw 设备大规模暴露</h3>
+                        <div class="event-meta">
+                            <span class="risk-badge risk-medium">Medium</span>
+                            <span class="scope-badge">🇨🇳 境内 2.3 万设备</span>
+                        </div>
+                    </div>
+                    <div class="event-content">
+                        <ul>
+                            <li><strong>时间:</strong> 2026 年 3 月下旬</li>
+                            <li><strong>风险等级:</strong> 🟡 中</li>
+                            <li><strong>预警内容:</strong>
+                                <ul>
+                                    <li>全球活跃 OpenClaw 互联网资产超 <strong>20 万个</strong>，境内约 <strong>2.3 万个</strong></li>
+                                    <li>大量设备暴露于互联网，存在重大安全风险</li>
+                                    <li>五大风险：默认配置漏洞、插件投毒、智能体失控等</li>
+                                    <li>被网友称为"龙虾"的开源 AI 智能体成为黑客攻击"重灾区"</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="event-tags">
+                            <span class="event-tag">OpenClaw</span>
+                            <span class="event-tag">国家通报</span>
+                            <span class="event-tag">2.3 万设备</span>
+                            <span class="event-tag">龙虾</span>
+                        </div>
+                    </div>
+                </article>
+            </section>
+
+            <section class="trend-section">
+                <h3>📊 2026 年 AI 安全五大威胁趋势</h3>
+                <table style="width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px;">
+                    <thead>
+                        <tr style="background: var(--bg-tertiary);">
+                            <th style="padding: 12px; text-align: left; border: 1px solid var(--border-color);">威胁类型</th>
+                            <th style="padding: 12px; text-align: left; border: 1px solid var(--border-color);">描述</th>
+                            <th style="padding: 12px; text-align: left; border: 1px solid var(--border-color);">风险演变</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">恶意 AI 智能体混迹</td>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">使用虚拟设备、合成浏览器，传统欺诈检测濒临失效</td>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">🔺 加剧</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">AI 加速供应链攻击</td>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">自主 AI 扫描 CI/CD，单次入侵快速传播</td>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">🔺 加剧</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">多云自主攻击链</td>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">AI 发现配置错误、生成漏洞利用代码并自主传播</td>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">🔺 新兴</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">AI 冒充身份攻击</td>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">学习用户行为模式，模仿真实员工数字"节奏"</td>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">🔺 新兴</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">钓鱼即服务 +AI</td>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">AI 个性化钓鱼，威胁更具针对性与可信度</td>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">🔺 加剧</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="action-section">
+                <h2 style="font-size: 18px; margin-bottom: 20px;">🛡️ 防御建议</h2>
+                <h3 style="font-size: 16px; margin: 16px 0 12px; color: var(--text-primary);">立即行动项</h3>
+                <ul class="action-list">
+                    <li><strong>审查 AI 编程工具依赖：</strong>检查 Cursor、Windsurf 等工具的 Chromium/Electron 版本，及时更新</li>
+                    <li><strong>实施 Prompt 注入防护：</strong>对所有 LLM 输入进行分层验证，建立 adversarial testing 流程</li>
+                    <li><strong>限制 AI 智能体权限：</strong>遵循最小权限原则，避免"超级用户问题"</li>
+                    <li><strong>监控 npm 包发布流程：</strong>确保构建流程正确排除调试文件（.map 等）</li>
+                </ul>
+                <h3 style="font-size: 16px; margin: 16px 0 12px; color: var(--text-primary);">中长期策略</h3>
+                <ul class="action-list">
+                    <li><strong>构建 AI 驱动的先发式安全系统：</strong>结合 XDR 与 AI 的统一安全运维</li>
+                    <li><strong>建立身份优先安全架构：</strong>管理人类与非人类身份的权限</li>
+                    <li><strong>实施零信任编码工作流：</strong>从"信任但验证"转向"零信任编码"</li>
+                    <li><strong>持续威胁暴露管理 (CTEM)：</strong>融合安全研究者协作与持续测试</li>
+                </ul>
+            </section>
+        </main>
+
+        <footer>
+            <p><strong>来源:</strong> 公开安全情报、厂商公告、安全研究机构</p>
+            <p><strong>编制:</strong> AI 安全简报自动化系统</p>
+            <div class="footer-links">
+                <a href="index.html">← 返回总览</a>
+                <a href="https://github.com/caoyu/ai-security-briefing" target="_blank">GitHub 仓库</a>
+                <a href="https://github.com/caoyu/ai-security-briefing/issues" target="_blank">反馈问题</a>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
